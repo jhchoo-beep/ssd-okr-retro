@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>신설팀 상반기 OKR 회고</title>
+<style>
+@font-face { font-family:'Attila Sans Classic'; font-weight:400; font-display:swap; src:url('fonts/AttilaSansClassic-Regular.woff2') format('woff2'); }
+@font-face { font-family:'Attila Sans Classic'; font-weight:500; font-display:swap; src:url('fonts/AttilaSansClassic-Medium.woff2') format('woff2'); }
+@font-face { font-family:'Attila Sans Classic'; font-weight:600; font-display:swap; src:url('fonts/AttilaSansClassic-Semibold.woff2') format('woff2'); }
+@font-face { font-family:'Attila Sans Classic'; font-weight:800; font-display:swap; src:url('fonts/AttilaSansClassic-Black.woff2') format('woff2'); }
+@font-face { font-family:'Pretendard'; font-weight:400; font-display:swap; src:url('fonts/Pretendard-Regular.woff2') format('woff2'); }
+@font-face { font-family:'Pretendard'; font-weight:500; font-display:swap; src:url('fonts/Pretendard-Medium.woff2') format('woff2'); }
+@font-face { font-family:'Pretendard'; font-weight:600; font-display:swap; src:url('fonts/Pretendard-SemiBold.woff2') format('woff2'); }
+@font-face { font-family:'Pretendard'; font-weight:700; font-display:swap; src:url('fonts/Pretendard-Bold.woff2') format('woff2'); }
+
+:root{
+  --paper:#f6f4ee; --paper-2:#efece4; --ink:#1b1f1c; --ink-2:#4a504b; --muted:#7a807a;
+  --rule:#d6d2c8; --rule-2:#e6e2d9; --green:#24603f; --green-soft:#dfe9e0; --red:#b3261e; --red-soft:#f3dcd9;
+  --num:'Attila Sans Classic','Pretendard',-apple-system,'Apple SD Gothic Neo',sans-serif;
+  --kr:'Pretendard',-apple-system,'Apple SD Gothic Neo',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--kr);background:var(--paper);color:var(--ink);line-height:1.55;font-size:15px;-webkit-font-smoothing:antialiased}
+.num{font-family:var(--num);font-variant-numeric:tabular-nums}
+
+/* 상단 진행 바 */
+.bar{position:sticky;top:0;z-index:20;background:rgba(246,244,238,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--rule);
+  display:flex;align-items:center;gap:0;padding:0 clamp(16px,4vw,48px);height:44px;overflow-x:auto;white-space:nowrap}
+.bar a{color:var(--muted);text-decoration:none;font-size:12.5px;padding:0 14px 0 0;letter-spacing:.01em}
+.bar a b{font-family:var(--num);font-weight:600;margin-right:5px;color:var(--ink-2)}
+.bar a.on{color:var(--ink)} .bar a.on b{color:var(--green)}
+.bar .hint{margin-left:auto;font-size:11.5px;color:var(--muted)}
+
+main{max-width:1180px;margin:0 auto;padding:0 clamp(16px,4vw,48px)}
+section.sec{min-height:100vh;padding:56px 0 64px;border-bottom:1px solid var(--rule);position:relative;scroll-margin-top:46px}
+section.sec:last-of-type{border-bottom:none}
+.sec-head{display:grid;grid-template-columns:72px 1fr;gap:16px;align-items:end;margin-bottom:28px}
+.sec-head .n{font-family:var(--num);font-weight:800;font-size:44px;line-height:1;color:var(--green)}
+.sec-head h2{font-size:26px;font-weight:700;letter-spacing:-.01em;word-break:keep-all}
+.sec-head .lead{grid-column:2;font-size:15px;color:var(--ink-2);margin-top:4px;word-break:keep-all}
+
+/* 표지 */
+.cover{display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:start;padding-top:80px}
+.cover .kicker{font-size:13px;color:var(--muted);letter-spacing:.06em;margin-bottom:18px}
+.cover h1{font-size:clamp(34px,5vw,58px);font-weight:700;line-height:1.12;letter-spacing:-.02em;word-break:keep-all}
+.cover h1 em{font-style:normal;color:var(--green)}
+.cover .sub{margin-top:22px;font-size:16px;color:var(--ink-2);word-break:keep-all}
+.cover .meta{border-top:1px solid var(--ink);padding-top:14px;margin-top:8px}
+.cover .meta dl{display:grid;grid-template-columns:80px 1fr;row-gap:10px;column-gap:12px;font-size:14px}
+.cover .meta dt{color:var(--muted)} .cover .meta dd{color:var(--ink)}
+.agenda{list-style:none;margin-top:6px}
+.agenda li{display:grid;grid-template-columns:28px 1fr 52px;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--rule-2);font-size:14.5px}
+.agenda li .k{font-family:var(--num);font-weight:600;color:var(--green)}
+.agenda li .t{font-family:var(--num);color:var(--muted);text-align:right;font-size:13px}
+.rules{margin-top:34px;padding:18px 20px;background:var(--paper-2);border-left:3px solid var(--green)}
+.rules h3{font-size:13px;color:var(--muted);margin-bottom:8px;font-weight:600}
+.rules p{font-size:14px;color:var(--ink-2);word-break:keep-all}
+.rules p+p{margin-top:5px}
+
+/* 공통: 장부 표 */
+table.ledger{width:100%;border-collapse:collapse;font-size:13.5px}
+table.ledger th{font-weight:600;color:var(--muted);text-align:left;padding:8px 10px;border-bottom:1px solid var(--ink);font-size:12.5px;white-space:nowrap}
+table.ledger td{padding:11px 10px;border-bottom:1px solid var(--rule-2);vertical-align:top;word-break:keep-all}
+table.ledger td.n,table.ledger th.n{text-align:right;font-family:var(--num);white-space:nowrap}
+table.ledger tr.sum td{border-top:1px solid var(--ink);border-bottom:none;font-weight:600}
+.tbl-scroll{overflow-x:auto}
+
+/* 1 맥락 */
+.ctx{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.blk h3{font-size:13px;color:var(--muted);font-weight:600;margin-bottom:10px;letter-spacing:.02em}
+.blk h3 span{font-family:var(--num);color:var(--ink-2);margin-right:8px}
+.blk p{font-size:14.5px;color:var(--ink);word-break:keep-all}
+.blk p+p{margin-top:6px}
+.blk ul{margin:8px 0 0 0;list-style:none}
+.blk li{padding:7px 0;border-bottom:1px solid var(--rule-2);font-size:14px;display:grid;grid-template-columns:30px 1fr;gap:8px;word-break:keep-all}
+.blk li b{font-family:var(--num);font-weight:600;color:var(--green)}
+.arith{margin-top:18px;border:1px solid var(--rule);padding:16px 18px;background:#fff}
+.arith .row{display:grid;grid-template-columns:1fr auto;gap:12px;padding:7px 0;border-bottom:1px solid var(--rule-2);font-size:14px;align-items:baseline}
+.arith .row:last-child{border-bottom:none}
+.arith .row .v{font-family:var(--num);font-weight:600;font-size:17px;white-space:nowrap}
+.arith .row .v.red{color:var(--red)}
+.arith .note{font-size:12.5px;color:var(--muted);margin-top:8px;word-break:keep-all}
+.gap{margin-top:36px;padding-top:18px;border-top:1px solid var(--ink)}
+.gap h3{font-size:15px;font-weight:700;margin-bottom:10px}
+.gap table.ledger td:first-child{font-weight:600}
+.tag{display:inline-block;font-size:11.5px;padding:1px 7px;border:1px solid var(--rule);border-radius:3px;color:var(--ink-2);white-space:nowrap}
+.tag.ok{border-color:var(--green);color:var(--green)} .tag.no{border-color:var(--red);color:var(--red)}
+
+/* 2 타임라인 */
+.tl{margin:6px 0 34px}
+.tl svg{width:100%;height:auto;display:block}
+.tl-list{display:none;list-style:none}
+.tl-list li{display:grid;grid-template-columns:56px 1fr;gap:10px;padding:6px 0;border-bottom:1px solid var(--rule-2);font-size:13.5px}
+.tl-list li b{font-family:var(--num);color:var(--green);font-weight:600}
+.proj{display:grid;grid-template-columns:1fr;gap:0;border-top:1px solid var(--ink)}
+.p{display:grid;grid-template-columns:56px 1.1fr 1fr 1fr 1fr;gap:18px;padding:18px 0;border-bottom:1px solid var(--rule)}
+.p .idx{font-family:var(--num);font-weight:800;font-size:22px;color:var(--green);line-height:1.1}
+.p h4{font-size:15.5px;font-weight:700;word-break:keep-all;line-height:1.35}
+.p .who{font-size:12.5px;color:var(--muted);margin-top:6px}
+.p .col{font-size:13.5px;color:var(--ink);word-break:keep-all}
+.p .col b{display:block;font-size:11.5px;color:var(--muted);font-weight:600;margin-bottom:5px;letter-spacing:.02em}
+.p .col.res{color:var(--ink)}
+.p .col .r{color:var(--red);font-weight:600}
+.p .col .g{color:var(--green);font-weight:600}
+.p .q{font-size:12.5px;color:var(--ink-2);margin-top:6px;padding-left:9px;border-left:2px solid var(--rule)}
+.p-head{display:grid;grid-template-columns:56px 1.1fr 1fr 1fr 1fr;gap:18px;padding:8px 0;font-size:12px;color:var(--muted);font-weight:600}
+
+/* 3 결과 */
+.res-grid{display:grid;grid-template-columns:1fr 1fr;gap:36px;margin-top:8px}
+.chart h3{font-size:13.5px;font-weight:600;margin-bottom:6px}
+.chart .sub{font-size:12.5px;color:var(--muted);margin-bottom:10px}
+.chart svg{width:100%;height:auto;display:block}
+.spark{width:96px;height:22px;vertical-align:middle}
+.remarks{margin-top:34px;display:grid;grid-template-columns:1fr 1fr;gap:36px}
+.remarks h3{font-size:15px;font-weight:700;margin-bottom:10px}
+.remarks ol{padding-left:20px;font-size:14px;color:var(--ink)}
+.remarks li{margin-bottom:8px;word-break:keep-all}
+.remarks li span{color:var(--muted);font-size:12.5px}
+
+/* 4 KPT */
+.kpt-tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+.kpt-tools select,.kpt-tools input,.kpt-tools textarea{font-family:var(--kr);font-size:14px;border:1px solid var(--rule);background:#fff;padding:8px 10px;color:var(--ink)}
+.kpt-tools textarea{flex:1 1 320px;min-height:42px;resize:vertical}
+.btn{font-family:var(--kr);font-size:13.5px;padding:9px 14px;border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.small{font-size:12px;padding:6px 10px}
+.kpt{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:start}
+.kcol{border-top:2px solid var(--ink);padding-top:12px;min-height:260px}
+.kcol h3{font-family:var(--num);font-weight:800;font-size:22px;letter-spacing:.01em}
+.kcol h3 small{font-family:var(--kr);font-weight:600;font-size:13px;margin-left:8px;color:var(--ink-2)}
+.kcol .guide{font-size:12.5px;color:var(--muted);margin:6px 0 12px;word-break:keep-all;min-height:38px}
+.card{background:#fff;border:1px solid var(--rule);padding:10px 12px;margin-bottom:8px;font-size:14px;position:relative;word-break:keep-all}
+.card .by{font-size:11.5px;color:var(--muted);margin-bottom:3px}
+.card .x{position:absolute;right:8px;top:6px;border:none;background:none;color:var(--muted);cursor:pointer;font-size:14px}
+.card .x:hover{color:var(--red)}
+.kcol .cnt{font-family:var(--num);color:var(--muted);font-size:13px;margin-left:6px}
+.export{margin-top:20px}
+.export textarea{width:100%;min-height:120px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;border:1px solid var(--rule);padding:10px;background:#fff;display:none}
+
+/* 5 다음 */
+.next{display:grid;grid-template-columns:1.2fr .8fr;gap:40px}
+table.act{width:100%;border-collapse:collapse;font-size:13.5px}
+table.act th{font-weight:600;color:var(--muted);text-align:left;padding:8px 8px;border-bottom:1px solid var(--ink);font-size:12.5px}
+table.act td{padding:4px 4px;border-bottom:1px solid var(--rule-2)}
+table.act input{width:100%;font-family:var(--kr);font-size:13.5px;border:none;background:transparent;padding:7px 6px;color:var(--ink)}
+table.act input:focus{outline:none;background:#fff}
+.fo h3{font-size:15px;font-weight:700;margin-bottom:10px}
+.fo ol{padding-left:20px;font-size:14px}
+.fo li{margin-bottom:8px;word-break:keep-all}
+.src{margin-top:40px;font-size:12px;color:var(--muted);line-height:1.7;word-break:keep-all}
+
+@media (max-width:900px){
+  .cover,.ctx,.res-grid,.remarks,.next{grid-template-columns:1fr;gap:28px}
+  .cover{padding-top:40px}
+  .p,.p-head{grid-template-columns:40px 1fr;gap:10px 14px}
+  .p .col{grid-column:2}
+  .p-head span:nth-child(n+3){display:none}
+  .kpt{grid-template-columns:1fr}
+  .tl svg{display:none} .tl-list{display:block}
+  section.sec{min-height:auto;padding:44px 0}
+  .sec-head{grid-template-columns:48px 1fr}
+  .sec-head .n{font-size:32px}
+}
+@media print{.bar{display:none} section.sec{min-height:auto;page-break-after:always}}
+</style>
+</head>
+<body>
+
+<nav class="bar" id="bar">
+  <a href="#s0" data-s="s0"><b>0</b>표지</a>
+  <a href="#s1" data-s="s1"><b>1</b>왜 이 OKR이었나</a>
+  <a href="#s2" data-s="s2"><b>2</b>무엇을 했나</a>
+  <a href="#s3" data-s="s3"><b>3</b>결과</a>
+  <a href="#s4" data-s="s4"><b>4</b>KPT</a>
+  <a href="#s5" data-s="s5"><b>5</b>다음</a>
+  <span class="hint">← → 키로 이동</span>
+</nav>
+
+<main>
+
+<!-- 0 표지 -->
+<section class="sec" id="s0">
+  <div class="cover">
+    <div>
+      <div class="kicker">맹그로브 신설 · 2026 상반기 OKR 회고</div>
+      <h1>OTA 리뷰 앞자리를 <em>9</em>로 만든다,<br>우리는 무엇을 배웠나</h1>
+      <p class="sub">2월 19일 선언부터 9월 1일 굿즈 이벤트 종료까지 반년. 점수는 8.6에서 8.6으로 돌아왔고, 그 사이에 우리가 한 일과 배운 것을 장부처럼 결산한다.</p>
+      <div class="rules">
+        <h3>회고 규칙</h3>
+        <p>사람이 아니라 설계·실행·측정을 본다. 잘한 실행이 왜 점수로 안 이어졌는지 따진다.</p>
+        <p>실패도 자산이다. 단, 무엇을 배웠는지 문장으로 남겨야 자산이 된다.</p>
+        <p>"수고했다"로 끝내지 않는다. 하반기에 다시 할 것과 접을 것을 정한다.</p>
+      </div>
+    </div>
+    <div class="meta">
+      <dl>
+        <dt>일시</dt><dd class="num">2026-09-21 (월) 스쿼드 위클리</dd>
+        <dt>진행</dt><dd class="num">60분</dd>
+      </dl>
+      <ul class="agenda">
+        <li><span class="k">1</span><span>왜 이 OKR이었나 — 선언의 산수와 우리가 잡은 KR</span><span class="t">10분</span></li>
+        <li><span class="k">2</span><span>무엇을 했나 — 과제 7건, 가설과 실제</span><span class="t">15분</span></li>
+        <li><span class="k">3</span><span>결과 — 7채널 점수, 신규 리뷰 평균, 산술</span><span class="t">10분</span></li>
+        <li><span class="k">4</span><span>KPT — Keep · Problem · Try</span><span class="t">20분</span></li>
+        <li><span class="k">5</span><span>다음 — Try를 액션으로, 하반기 재설계 질문</span><span class="t">5분</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 1 맥락 -->
+<section class="sec" id="s1">
+  <div class="sec-head">
+    <div class="n">1</div>
+    <h2>왜 이 OKR이었나</h2>
+    <p class="lead">"앞자리 9"는 숫자 목표가 아니라 구조를 바꾸라는 요구였다. 그 산수를 다시 본다.</p>
+  </div>
+  <div class="ctx">
+    <div class="blk">
+      <h3><span>02-19</span>OKR 선언 (#be-ops-cm)</h3>
+      <p>즉시 실행 가능한 개선으로 OTA 리뷰 앞자리를 9로 올린다. 아고다 누적 리뷰는 약 2,500건(총점 모수 8,059건은 서드파티 포함), 9.0까지 10점 리뷰가 약 1,900건 더 필요하다.</p>
+      <p>월 예약 약 500건에 리뷰 작성률 약 10%면 월 50건. 이 구조를 유지하면 3년 이상 걸린다. 그래서 기다리는 방식이 아니라 구조 자체를 바꾸는 접근이 필요하다.</p>
+      <ul>
+        <li><b>1</b><span>이용객 불편을 즉시 개선해 체감 만족도를 끌어올린다</span></li>
+        <li><b>2</b><span>'10점 차이'를 만드는 환대와 경험 설계를 강화한다</span></li>
+        <li><b>3</b><span>아고다 리뷰 작성률을 10%에서 80% 수준까지 끌어올린다</span></li>
+      </ul>
+      <div class="arith">
+        <div class="row"><span>아고다 총점 (서드파티 포함 모수)</span><span class="v">8.6 <small class="num" style="font-weight:400;color:var(--muted)">/ 8,059건 (2/19)</small></span></div>
+        <div class="row"><span>세부: 위치 9.1 · 가성비 8.9 · 부대시설 8.8 · 청결 8.7 · 서비스 8.6</span><span class="v"></span></div>
+        <div class="row"><span>부정 언급 상위: 욕실 80% · 에어컨 73% · 샤워실 64% · 방음 57%</span><span class="v"></span></div>
+      </div>
+    </div>
+    <div class="blk">
+      <h3><span>03-02</span>전략 3방향과 KR 4개 (노션 OKR 페이지)</h3>
+      <ul>
+        <li><b>①</b><span>PPM 협업으로 아고다 예약 <strong>모수</strong> 키우기 — KR1 아고다 비중 +200%p, 월 +700건</span></li>
+        <li><b>②</b><span>아고다 리뷰 <strong>작성률</strong> 퀀텀 점프 — KR2 10% → 60% → 80%, 월 리뷰 1,000건</span></li>
+        <li><b>③</b><span>현장 <strong>체질</strong> 개선으로 평균 9.5+ 유지 — KR3 신규 리뷰 평균 9.5 이상, 6점 이하 95% 감소 · KR4 욕실/샤워/에어컨/방음 현장 해결률 90%</span></li>
+      </ul>
+      <h3 style="margin-top:22px"><span>03-02 ~ 03-10</span>팀 아이디어 13건 (노션 아이데이션 DB)</h3>
+      <p style="font-size:13.5px;color:var(--ink-2)">작성률 축 5건 — 로비 리뷰 스테이션 · 리뷰 심리 트리거 곳곳 설치 · QR 리뷰 시스템 · OTA 자동 메시지(체크아웃 후 리뷰 유도) · 체크아웃 자동 메시지 고도화</p>
+      <p style="font-size:13.5px;color:var(--ink-2)">체질 축 8건 — 선제적 보상 실행 · 기대관리+공감+빠른 대응 · 유연하고 센스있는 CA 되기 · 체크인 직후 문제 확인 메시지 · 입실 15분 골든타임 메시지 · HK QC 체크리스트 강화 · 컴플레인 응대 스크립트 통일 · 어메니티 확대</p>
+      <p style="font-size:13px;color:var(--muted);margin-top:8px">모수 축(전략 ①)은 PPM 협의 의제로만 남고 지점 과제로 내려오지 않았다.</p>
+    </div>
+  </div>
+  <div class="gap">
+    <h3>우리가 잡은 KR과 실제로 잰 것</h3>
+    <div class="tbl-scroll">
+    <table class="ledger">
+      <thead><tr><th>KR</th><th>목표</th><th>상반기 측정</th><th>판정</th></tr></thead>
+      <tbody>
+        <tr><td>총점 앞자리 9</td><td class="num">8.6 → 9.0</td><td>주간 수집 25회 (3/23~9/14)</td><td><span class="tag no">8.6, 변동 없음</span></td></tr>
+        <tr><td>KR1 아고다 모수</td><td class="num">월 +700건</td><td>측정 없음 (PPM 협의 미착수)</td><td><span class="tag">미측정</span></td></tr>
+        <tr><td>KR2 작성률</td><td class="num">10% → 80%</td><td>분모(체크아웃 수)를 세지 않아 산출 불가. 리뷰 증가는 주 29건 수준</td><td><span class="tag">미측정</span></td></tr>
+        <tr><td>KR3 신규 리뷰 평균</td><td class="num">9.5 이상</td><td>4월부터 대시보드에 월별 축적. 3~8월 8.20~9.16</td><td><span class="tag no">최고 9.16 (5월)</span></td></tr>
+        <tr><td>KR4 하드웨어 4종 해결률</td><td class="num">90%</td><td>수행과제 단위로 처리, 해결률은 집계 안 함</td><td><span class="tag">미측정</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p style="font-size:13.5px;color:var(--ink-2);margin-top:12px;word-break:keep-all">총점은 모수 8천 건이 눌러서 어떤 개입도 소수점 둘째 자리에서 끝난다. 유일하게 잴 수 있었던 KR3를 3장에서 기준으로 쓴다.</p>
+  </div>
+</section>
+
+<!-- 2 무엇을 했나 -->
+<section class="sec" id="s2">
+  <div class="sec-head">
+    <div class="n">2</div>
+    <h2>무엇을 했나</h2>
+    <p class="lead">과제마다 "왜 점수가 오를 것이라 봤나"와 "실제로 무엇이 남았나"를 나란히 놓는다.</p>
+  </div>
+  <div class="tl" id="tl"></div>
+  <div class="p-head"><span></span><span>과제 · 기간</span><span>가설</span><span>실제로 한 것</span><span>결과 · 남는 것</span></div>
+  <div class="proj" id="proj"></div>
+  <p style="font-size:12.5px;color:var(--muted);margin-top:14px;word-break:keep-all">병행 인프라 — 6/9 생수 절감분으로 컴포즈 커피쿠폰 100부 리뷰 부스팅을 결정했으나 집행 기록이 없다. 회의에서 확인.</p>
+</section>
+
+<!-- 3 결과 -->
+<section class="sec" id="s3">
+  <div class="sec-head">
+    <div class="n">3</div>
+    <h2>결과</h2>
+    <p class="lead">7개 채널 중 9.0(5점제 4.5)에 닿은 채널은 없다. 리뷰는 늘었고 점수는 제자리다.</p>
+  </div>
+  <div class="tbl-scroll">
+  <table class="ledger" id="chan"></table>
+  </div>
+  <div class="res-grid">
+    <div class="chart">
+      <h3>아고다 총점 — 주간 25회</h3>
+      <div class="sub">3/23 ~ 9/14 · 6/1 한 주만 8.7</div>
+      <div id="c-agoda"></div>
+    </div>
+    <div class="chart">
+      <h3>아고다 신규 리뷰 월 평균 (KR3)</h3>
+      <div class="sub">대시보드 수집 표본 · 막대 위 숫자는 리뷰 건수 · 9월은 진행 중</div>
+      <div id="c-kr3"></div>
+    </div>
+  </div>
+  <div class="remarks">
+    <div>
+      <h3>산술 — 총점으로는 읽을 수 없었던 이유</h3>
+      <div class="arith">
+        <div class="row"><span>굿즈 시작 시점 모수 (5/4)</span><span class="v">8,414건 · 8.6</span></div>
+        <div class="row"><span>10점 리뷰 85건이 전부 더해졌을 때 총점</span><span class="v">8.61</span></div>
+        <div class="row"><span>지금 모수 (9/14)</span><span class="v">8,937건 · 8.6</span></div>
+        <div class="row"><span>9.0까지 필요한 10점 리뷰 (다른 리뷰 0건 가정)</span><span class="v red">약 3,575건</span></div>
+        <div class="row"><span>지금 속도 (월 약 130건)로 걸리는 시간</span><span class="v red">27개월 이상</span></div>
+        <div class="note">개입의 효과는 총점이 아니라 "대상자의 리뷰 작성률"과 "대상자 평점 vs 비대상자"로만 읽힌다. 상반기엔 둘 다 세지 않았다.</div>
+      </div>
+    </div>
+    <div>
+      <h3>9/2 결과 검증에서 나온 네 가지</h3>
+      <ol>
+        <li>아고다 8.0에서 8.6으로 0.6점 오른 게 맞나 <span>— 아니다. 시작 전부터 8.6, 6/1 한 주 8.7, 다시 8.6</span></li>
+        <li>가설을 세우고 업그레이드를 했는데 영향과 결과가 모호하다 <span>— 초기 기획에 영향력을 분석할 설계가 없었다</span></li>
+        <li>기여도가 크다면서 왜 그만두나 <span>— 끝난 건 굿즈(100개 소진). 업그레이드는 계속. "소진"은 판단이 아니다</span></li>
+        <li>가설·실험·경험·학습·자산화가 성장의 길이다 <span>— 수고가 의미 있게 남도록 이 회고를 한다</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- 4 KPT -->
+<section class="sec" id="s4">
+  <div class="sec-head">
+    <div class="n">4</div>
+    <h2>KPT</h2>
+    <p class="lead">한 장에 한 가지. 점수가 아니라 설계·실행·측정 중 어디에 대한 이야기인지 붙여 쓴다.</p>
+  </div>
+  <div class="kpt-tools">
+    <select id="k-col">
+      <option value="keep">Keep</option><option value="problem">Problem</option><option value="try">Try</option>
+    </select>
+    <textarea id="k-text" placeholder="한 장에 한 가지. 예: 굿즈 인증 절차는 데스크 대화의 계기가 됐다 (실행)"></textarea>
+    <button class="btn" id="k-add">붙이기</button>
+  </div>
+  <div class="kpt">
+    <div class="kcol" data-col="keep">
+      <h3>Keep<small>계속할 것</small><span class="cnt"></span></h3>
+      <div class="guide">점수와 무관하게 이용객에게 남은 것. 하반기에도 그대로 가져갈 루틴.</div>
+      <div class="cards"></div>
+    </div>
+    <div class="kcol" data-col="problem">
+      <h3>Problem<small>막혔던 것</small><span class="cnt"></span></h3>
+      <div class="guide">설계에서 막혔나, 실행에서 막혔나, 측정에서 막혔나. 하나를 고르고 적는다.</div>
+      <div class="cards"></div>
+    </div>
+    <div class="kcol" data-col="try">
+      <h3>Try<small>해볼 것</small><span class="cnt"></span></h3>
+      <div class="guide">하반기에 측정 가능한 형태로 다시 해볼 것. 시작할 때 종료 기준까지.</div>
+      <div class="cards"></div>
+    </div>
+  </div>
+  <div class="export">
+    <button class="btn ghost small" id="k-export">노션에 붙일 텍스트 만들기</button>
+    <button class="btn ghost small" id="k-clear">전체 지우기</button>
+    <span id="k-msg" style="font-size:12.5px;color:var(--muted);margin-left:8px"></span>
+    <textarea id="k-out" readonly></textarea>
+  </div>
+</section>
+
+<!-- 5 다음 -->
+<section class="sec" id="s5">
+  <div class="sec-head">
+    <div class="n">5</div>
+    <h2>다음</h2>
+    <p class="lead">Try 중 하반기에 할 것만 고른다. 담당·기한·측정 방법이 비면 액션이 아니다.</p>
+  </div>
+  <div class="next">
+    <div>
+      <table class="act" id="act">
+        <thead><tr><th style="width:44%">액션</th><th>담당</th><th>기한</th><th>무엇으로 재나</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <button class="btn ghost small" id="a-add" style="margin-top:10px">행 추가</button>
+    </div>
+    <div class="fo">
+      <h3>9/3 답변으로 이미 정리된 것</h3>
+      <ol>
+        <li>점수 사실은 데이터로 정정한다. 6/1 "OKR 결실" 공유도 한 주짜리였음을 같이 인정한다.</li>
+        <li>설계 결함을 인정한다. 총점 KR과 8천 모수로는 개입 효과를 애초에 읽을 수 없었다.</li>
+        <li>굿즈는 종료, 무상 업그레이드는 전사 프로그램대로 계속한다. 종료 기준은 소진이 아니라 판단이어야 한다.</li>
+        <li>회고 결과로 업그레이드를 측정 가능한 지표(대상자 작성률, 대상자 vs 비대상자 평점)로 재설계할지 종료할지 의사결정을 요청한다.</li>
+      </ol>
+      <h3 style="margin-top:22px">회의에서 확인할 빈칸</h3>
+      <ol>
+        <li>룸 업그레이드 누적 건수 — 워크플로 기록 역산</li>
+        <li>커피쿠폰 100부 집행 여부</li>
+        <li>굿즈 수량 차이 — 준비 100 vs 지급 85 + 잔여 3</li>
+        <li>9/1 안내의 "5월 8.0" 출처 화면</li>
+      </ol>
+    </div>
+  </div>
+  <p class="src">출처 — 슬랙 #be-ops-cm(2/19) · #be-ops-ssd-squad(3/2 ~ 9/2 스레드, SSD OKR Tracker) · #be-ops-fo(9/2 스레드) · 노션 [OKR] 즉시 실행 가능한 아이템…9로 만든다 · 신설/동대문 Squad Weekly 260309·260323 · VOC 대시보드 ota_scores(주간 수집 3/23~9/14)·reviews(월별 수집 표본). 점수 만점: 아고다·부킹·트립·익스피디아·여기어때 10점, 에어비앤비·NOL 5점.</p>
+</section>
+
+</main>
+
+<script>
+/* ───────── 데이터 (2026-09-14 수집 기준) ───────── */
+const WEEKS = ["03-23","04-06","04-13","04-20","04-27","05-04","05-11","05-18","05-25","06-01","06-08","06-15","06-22","06-29","07-06","07-13","07-20","07-27","08-03","08-10","08-17","08-24","08-31","09-07","09-14"];
+const AGODA = { score:[8.6,8.6,8.6,8.6,8.6,8.6,8.6,8.6,8.6,8.7,8.6,8.6,8.6,8.6,8.6,8.6,8.6,8.6,8.6,8.6,8.6,8.6,8.6,8.6,8.6],
+                count:[8200,8284,8310,8345,8372,8414,8451,8472,8510,8552,8570,8603,8627,8651,8674,8702,8719,8738,8751,8773,8802,8845,8869,8910,8937] };
+const KR3 = [ {m:"3월",n:35,avg:8.94,n10:17,le6:3},{m:"4월",n:44,avg:8.93,n10:17,le6:2},{m:"5월",n:55,avg:9.16,n10:28,le6:1},
+              {m:"6월",n:22,avg:8.20,n10:8,le6:3},{m:"7월",n:17,avg:8.92,n10:7,le6:0},{m:"8월",n:39,avg:8.68,n10:18,le6:5},{m:"9월",n:18,avg:8.51,n10:6,le6:2,partial:true} ];
+const CHANNELS = [
+  {name:"아고다", max:10, s0:8.6, s1:8.6, c0:8200, c1:8937, spark:AGODA.score, note:"6/1 한 주 8.7"},
+  {name:"에어비앤비", max:5, s0:4.70, s1:4.72, c0:571, c1:657, spark:[4.7,4.7,4.7,4.7,4.7,4.7,4.7,4.7,4.7,4.73,4.73,4.73,4.73,4.73,4.73,4.73,4.73,4.73,4.73,4.73,4.73,4.73,4.72,4.72,4.72,4.72], note:"슈퍼호스트 4.8 미달 (6/30 4.73)"},
+  {name:"부킹닷컴", max:10, s0:8.4, s1:8.3, c0:531, c1:474, spark:[8.4,8.4,8.4,8.4,8.4,8.4,8.4,8.3,8.3,8.3,8.3,8.3,8.3,8.4,8.4,8.4,8.3,8.3,8.3,8.3,8.3,8.3,8.3,8.3,8.3,8.3], note:"리뷰 수 감소 — 플랫폼 만료 추정"},
+  {name:"트립닷컴", max:10, s0:8.7, s1:8.6, c0:482, c1:674, spark:[8.7,8.7,8.7,8.7,8.7,8.7,8.7,8.7,8.7,8.7,8.7,8.7,8.7,8.8,8.8,8.8,8.8,8.7,8.7,8.7,8.6,8.6,8.6,8.6,8.6,8.6,8.6], note:"리뷰 증가 최다. 6~7월 8.8 후 하락"},
+  {name:"익스피디아", max:10, s0:8.2, s1:8.2, c0:180, c1:198, spark:[8.2,8.2,8.2,8.2,8.2,8.2,8.2,8.2,8.2,8.2,8.2,8.2,8.2,8.2,8.2,8.2,8.2,8.2,8.2,8.2,8.2,8.2,8.2,8.2,8.2,8.2,8.2], note:""},
+  {name:"여기어때", max:10, s0:6.8, s1:7.2, c0:9, c1:12, spark:[6.8,6.8,6.8,6.8,6.8,6.8,6.8,6.8,7.1,7.1,7.1,7.1,7.0,7.0,7.0,7.0,7.0,7.0,7.0,7.2,7.2,7.2,7.2,7.2,7.2,7.2,7.2], note:"모수 12건"},
+  {name:"NOL", max:5, s0:4.0, s1:3.0, c0:83, c1:81, spark:[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,3.5,3.5,3.5,3,3,3,3], note:"8월 이후 하락, 원인 미확인"}
+];
+const TIMELINE = [
+  {d:"02-19", t:"OKR 선언", tier:0},
+  {d:"03-02", t:"아이디어 모집 13건", tier:2},
+  {d:"03-11", t:"자동 메시지·업그레이드 착수", tier:1},
+  {d:"03-15", t:"아고다 리뷰 링크 불가", tier:3},
+  {d:"03-19", t:"업그레이드 원칙·K-굿즈 제안", tier:0},
+  {d:"04-06", t:"굿즈 증정 시작", tier:2},
+  {d:"04-11", t:"트래커 게시·언더도어", tier:1},
+  {d:"05-11", t:"고객여정 7단계 설계", tier:3},
+  {d:"06-01", t:"아고다 8.7 (한 주)", tier:0},
+  {d:"06-04", t:"언더도어 중단·선제리뷰", tier:2},
+  {d:"06-30", t:"슈퍼호스트 4.73 미달", tier:1},
+  {d:"09-01", t:"굿즈 종료 85개", tier:0},
+  {d:"09-02", t:"결과 검증 지적 4건", tier:2},
+  {d:"09-21", t:"회고", tier:1}
+];
+const PROJECTS = [
+  {t:"OTA 자동 메시지 — 체크아웃 후 리뷰 유도", who:"3/11 착수",
+   h:"체크아웃 직후 리뷰 링크가 담긴 메시지를 보내면 작성률이 오른다.",
+   d:"아고다에 리뷰 링크·QR 발급을 요청 → 3/15 \"예약번호 연계 자동 발송이라 제공 불가\" 회신. 예약확정·체크인 전일·체크아웃 3종 안내 메시지에 리뷰 이벤트 문구를 넣어 세팅.",
+   r:"<span class='r'>작성률 미측정.</span> 분모(체크아웃 수) 대비 리뷰 수를 세지 않았다.", q:"남는 것: 메시지 3종 자산, 아고다 정책 확인. 7/13 위클리에서 메시지 개편은 연내 별도 검증 후 판단으로 보류."},
+  {t:"압도적 환대 룸 업그레이드 + 레터 + 리뷰 요청", who:"3/16 원칙 · 3/19부터 트래커 매일 게시 · 진행 중",
+   h:"무상 업그레이드 경험이 10점 리뷰로 이어진다.",
+   d:"아고다·에어비앤비 단박(1~2박) 대상, 하루 최대 5객실, 1단계 업그레이드, 4개국어 안내, 워크플로 기록. 전사 프로그램(3월 2주~, 업그레이드 1건+얼리체크인)과 병행.",
+   r:"<span class='r'>건수·리뷰 전환 미집계.</span> 지금도 진행 중 (9/2 공지).", q:"남는 것: 워크플로 기록으로 대상자 수 역산 가능. \"대상자 리뷰 작성률\"을 잴 유일한 원천."},
+  {t:"K-굿즈 리뷰 리워드 — 아고다 10점 리뷰 인증 시 증정", who:"3/19 제안 → 3/25 승인 → 4/6 시작 → 9/1 종료",
+   h:"20대 중화권 여성 솔로 여행객(61%·70.5%) 페르소나에 K-굿즈가 통해 월 100~120건 리뷰를 더 끌어낸다.",
+   d:"발주 186,660원, 100세트를 사흘 만에 패키징(4/5 40개), 4개국어 POP. 10점 리뷰 확인 후 증정, 지급현황 시트 기록.",
+   r:"<span class='g'>실행은 빨랐다.</span> 85개 지급·3개 잔여. <span class='r'>총점 8.6 → 8.6.</span> 리뷰 증가 속도(주 29건)에 부스팅 흔적 없음.", q:"남는 것: 10점 리뷰 85건의 확인 기록, 페르소나 데이터. 9/2 지적의 본체."},
+  {t:"아고다 언더도어 레터", who:"4/11 ~ 5/15 · HK 세팅",
+   h:"객실 안 레터가 체크아웃 동선에서 리뷰를 상기시킨다.",
+   d:"수백 장 인쇄, 퇴실 전날 객실 투입. 수령 확인 36개.",
+   r:"<span class='r'>6/4 중단, 포스터만 유지.</span> 촬영팀 리소스 부담, 서드파티 리뷰 6천/8천이라 효과 추적 불가.", q:"남는 것: \"효과를 못 읽는 개입은 접는다\"는 기준. 같은 잣대를 굿즈·업그레이드에는 대지 않았다."},
+  {t:"에어비앤비 선제 호스트 리뷰 → 슈퍼호스트", who:"3월 전체 작성 · 6/4~6/30 집중",
+   h:"호스트가 먼저 리뷰를 남기면 알림이 가고, 게스트 리뷰가 늘어 4.8에 닿는다.",
+   d:"3월 퇴실 전 건 리뷰 작성, 6월 매일 선제 작성. 2점 리뷰 삭제 요청 → 6/19 거절 → 6/21 재검토 요청.",
+   r:"<span class='r'>6/30 4.73, 미달.</span> 5/25 4.73 도달 후 정체, 8/24 4.72.", q:"남는 것: 선제 리뷰 루틴(동대문은 데일리 채택), OTA 분쟁 대응 경험."},
+  {t:"고객여정 7단계 환대경험 설계 · 페어웰 경험", who:"5/11 ~ 6월",
+   h:"하드웨어 약점(욕실·에어컨·방음)을 선제 안내·즉시 대응·보상으로 막고, 체크아웃 11~12시 대면 환대로 10점 차이를 만든다.",
+   d:"단계별 위생·동기 레버 작성, 고높이 베개 선택제 제안, 런드리룸 전층 개방, 냉난방기 분해세척(6/3), 매트리스 교체(6/1~2), 519호 냉장고, 하수구 선배정 자동화, 7/15 특별방역.",
+   r:"<span class='r'>6/19 이후 레버 작성 기록 없음.</span> 하드웨어 대응은 수행과제로 흡수돼 개별 완료. 해결률(KR4)은 집계 안 함.", q:"남는 것: 레버 문서, 수행과제 이력. 페어웰 경험은 착수 전 상태 — 회의에서 확인."},
+  {t:"VOC 대시보드 · 수행과제 체계", who:"4/8 DB → 6/10 슬랙 알림봇 → 7/1 6월 Critical 3건",
+   h:"리뷰 → 변심 트리거 → 수행과제 루프가 전략 ③의 엔진이 된다.",
+   d:"월별 리뷰 분석, 수행과제 등록·진행 알림, 주간 리포트(9.0 기준선 미달 리뷰 전수 논의), 6월 HK 정비 퀄리티·인스펙션 체크리스트·프론트 공백 사이니지.",
+   r:"<span class='g'>매주 FO Weekly에서 소비, 정착.</span> 상반기 과제 중 유일하게 측정 가능한 자산.", q:"남는 것: KR3(신규 리뷰 평균)을 잴 수 있게 된 것 자체. 6월 8.20 급락과 HK 검수 붕괴 시기가 겹친다."}
+];
+
+/* ───────── 렌더 ───────── */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+
+// 2. 타임라인 SVG + 리스트
+(function(){
+  const W=1100, H=214, x0=40, x1=W-40, y=110;
+  const TIER_Y = [22, 52, 168, 198]; // 0·1 위쪽 두 단, 2·3 아래쪽 두 단
+  const toDay = d => { const [m,dd]=d.split('-').map(Number); return new Date(2026,m-1,dd); };
+  const t0=toDay("02-15"), t1=toDay("09-25");
+  const X = d => x0 + (toDay(d)-t0)/(t1-t0)*(x1-x0);
+  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="타임라인">`;
+  s += `<line x1="${x0}" y1="${y}" x2="${x1}" y2="${y}" stroke="#1b1f1c" stroke-width="1"/>`;
+  ["03-01","04-01","05-01","06-01","07-01","08-01","09-01"].forEach(d=>{ const x=X(d); s+=`<line x1="${x}" y1="${y-4}" x2="${x}" y2="${y+4}" stroke="#7a807a"/><text x="${x}" y="${y+20}" font-size="11" fill="#7a807a" text-anchor="middle" font-family="Attila Sans Classic, sans-serif">${parseInt(d)}월</text>`; });
+  // 굿즈 구간
+  s += `<rect x="${X("04-06")}" y="${y-3}" width="${X("09-01")-X("04-06")}" height="6" fill="#24603f" opacity=".25"/>`;
+  s += `<text x="${(X("04-06")+X("09-01"))/2}" y="${y+36}" font-size="11" fill="#24603f" text-anchor="middle">K-굿즈 증정 4/6 ~ 9/1</text>`;
+  TIMELINE.forEach((e,i)=>{ const x=X(e.d); const up = e.tier<2; const ty = TIER_Y[e.tier]; const ly = up ? y-8 : y+8;
+    s += `<line x1="${x}" y1="${ly}" x2="${x}" y2="${up?ty+18:ty-14}" stroke="#d6d2c8"/>`;
+    s += `<circle cx="${x}" cy="${y}" r="4.5" fill="#24603f" stroke="#f6f4ee" stroke-width="2"/>`;
+    s += `<text x="${x}" y="${ty}" font-size="11.5" fill="#1b1f1c" text-anchor="middle"><tspan font-family="Attila Sans Classic, sans-serif" font-weight="600" fill="#24603f">${e.d.replace('-','/')}</tspan></text>`;
+    s += `<text x="${x}" y="${ty+14}" font-size="11" fill="#4a504b" text-anchor="middle">${esc(e.t)}</text>`;
+  });
+  s += `</svg>`;
+  let l = `<ul class="tl-list">` + TIMELINE.map(e=>`<li><b>${e.d.replace('-','/')}</b><span>${esc(e.t)}</span></li>`).join('') + `</ul>`;
+  $('#tl').innerHTML = s + l;
+})();
+
+// 2. 과제 장부
+$('#proj').innerHTML = PROJECTS.map((p,i)=>`
+  <div class="p">
+    <div class="idx">${String(i+1).padStart(2,'0')}</div>
+    <div><h4>${p.t}</h4><div class="who">${p.who}</div></div>
+    <div class="col"><b>가설</b>${p.h}</div>
+    <div class="col"><b>실제로 한 것</b>${p.d}</div>
+    <div class="col res"><b>결과</b>${p.r}<div class="q">${p.q}</div></div>
+  </div>`).join('');
+
+// 3. 채널표 + 스파크라인
+function spark(vals, max){
+  const w=96,h=22,p=3; const lo=Math.min(...vals), hi=Math.max(...vals); const span=Math.max(hi-lo, max===5?0.2:0.4);
+  const pts = vals.map((v,i)=>[p+i*(w-2*p)/(vals.length-1), h-p-(v-lo)/span*(h-2*p)]);
+  const d = pts.map((q,i)=>(i?'L':'M')+q[0].toFixed(1)+' '+q[1].toFixed(1)).join(' ');
+  const last = pts[pts.length-1];
+  return `<svg class="spark" viewBox="0 0 ${w} ${h}"><path d="${d}" fill="none" stroke="#24603f" stroke-width="1.6" stroke-linejoin="round"/><circle cx="${last[0]}" cy="${last[1]}" r="2.6" fill="#24603f"/></svg>`;
+}
+(function(){
+  let h = `<thead><tr><th>채널</th><th class="n">목표</th><th class="n">3/23</th><th class="n">9/14</th><th class="n">변화</th><th>추이</th><th class="n">리뷰 수</th><th class="n">증감</th><th>비고</th></tr></thead><tbody>`;
+  CHANNELS.forEach(c=>{
+    const tgt = c.max===5?'4.5':'9.0'; const d=(c.s1-c.s0); const ds = d===0?'—':(d>0?'+':'')+d.toFixed(c.max===5?2:1);
+    const dc = c.c1-c.c0; const dcs=(dc>0?'+':'')+dc.toLocaleString();
+    const hit = c.s1 >= (c.max===5?4.5:9.0);
+    h += `<tr><td style="font-weight:600">${c.name}${c.max===5?' <span class="tag" style="font-size:10.5px">5점제</span>':''}</td><td class="n">${tgt}</td><td class="n">${c.s0.toFixed(c.max===5?2:1)}</td><td class="n" style="font-weight:600;color:${hit?'var(--green)':'var(--red)'}">${c.s1.toFixed(c.max===5?2:1)}</td><td class="n">${ds}</td><td>${spark(c.spark,c.max)}</td><td class="n">${c.c0.toLocaleString()} → ${c.c1.toLocaleString()}</td><td class="n">${dcs}</td><td style="color:var(--ink-2);font-size:12.5px">${c.note}</td></tr>`;
+  });
+  h += `<tr class="sum"><td>9.0 달성 채널</td><td class="n" colspan="3">0 / 7</td><td colspan="5" style="font-weight:400;color:var(--ink-2)">10점 환산 기준. 에어비앤비 4.72 = 9.44, NOL 3.0 = 6.0</td></tr></tbody>`;
+  $('#chan').innerHTML = h;
+})();
+
+// 3. 아고다 주간 라인
+(function(){
+  const W=520,H=200,pl=40,pr=16,pt=16,pb=30; const lo=8.4,hi=9.05;
+  const X=i=>pl+i*(W-pl-pr)/(WEEKS.length-1), Y=v=>pt+(hi-v)/(hi-lo)*(H-pt-pb);
+  let s=`<svg viewBox="0 0 ${W} ${H}">`;
+  [8.5,8.7,8.9].forEach(g=>{ s+=`<line x1="${pl}" y1="${Y(g)}" x2="${W-pr}" y2="${Y(g)}" stroke="#e6e2d9"/><text x="${pl-8}" y="${Y(g)+4}" font-size="11" text-anchor="end" fill="#7a807a" font-family="Attila Sans Classic, sans-serif">${g.toFixed(1)}</text>`; });
+  s+=`<line x1="${pl}" y1="${Y(9.0)}" x2="${W-pr}" y2="${Y(9.0)}" stroke="#b3261e" stroke-dasharray="4 4"/><text x="${W-pr}" y="${Y(9.0)-5}" font-size="11" text-anchor="end" fill="#b3261e">목표 9.0</text>`;
+  const d = AGODA.score.map((v,i)=>(i?'L':'M')+X(i).toFixed(1)+' '+Y(v).toFixed(1)).join(' ');
+  s+=`<path d="${d}" fill="none" stroke="#24603f" stroke-width="2" stroke-linejoin="round"/>`;
+  AGODA.score.forEach((v,i)=>{ if(v>8.6){ s+=`<circle cx="${X(i)}" cy="${Y(v)}" r="4.5" fill="#24603f" stroke="#f6f4ee" stroke-width="2"/><text x="${X(i)}" y="${Y(v)-10}" font-size="11" text-anchor="middle" fill="#1b1f1c">6/1 · 8.7</text>`; } });
+  s+=`<circle cx="${X(WEEKS.length-1)}" cy="${Y(8.6)}" r="4" fill="#24603f" stroke="#f6f4ee" stroke-width="2"/>`;
+  [0,8,16,24].forEach(i=>{ s+=`<text x="${X(i)}" y="${H-8}" font-size="11" text-anchor="middle" fill="#7a807a" font-family="Attila Sans Classic, sans-serif">${WEEKS[i].replace('-','/')}</text>`; });
+  s+=`</svg>`;
+  $('#c-agoda').innerHTML=s;
+})();
+
+// 3. KR3 월별 막대
+(function(){
+  const W=520,H=200,pl=40,pr=16,pt=22,pb=30; const lo=7.8,hi=9.6; const n=KR3.length;
+  const bw=22, slot=(W-pl-pr)/n; const X=i=>pl+slot*i+slot/2, Y=v=>pt+(hi-v)/(hi-lo)*(H-pt-pb);
+  let s=`<svg viewBox="0 0 ${W} ${H}">`;
+  [8.0,8.5,9.5].forEach(g=>{ s+=`<line x1="${pl}" y1="${Y(g)}" x2="${W-pr}" y2="${Y(g)}" stroke="#e6e2d9"/><text x="${pl-8}" y="${Y(g)+4}" font-size="11" text-anchor="end" fill="#7a807a" font-family="Attila Sans Classic, sans-serif">${g.toFixed(1)}</text>`; });
+  s+=`<line x1="${pl}" y1="${Y(9.0)}" x2="${W-pr}" y2="${Y(9.0)}" stroke="#b3261e" stroke-dasharray="4 4"/><text x="${W-pr}" y="${Y(9.0)-5}" font-size="11" text-anchor="end" fill="#b3261e">9.0</text>`;
+  KR3.forEach((k,i)=>{ const x=X(i)-bw/2, yv=Y(k.avg), hgt=Y(lo)-yv;
+    s+=`<rect x="${x}" y="${yv}" width="${bw}" height="${hgt}" rx="3" fill="#24603f" opacity="${k.partial?.45:1}"/>`;
+    s+=`<text x="${X(i)}" y="${yv-6}" font-size="11.5" text-anchor="middle" fill="#1b1f1c" font-family="Attila Sans Classic, sans-serif" font-weight="600">${k.avg.toFixed(2)}</text>`;
+    s+=`<text x="${X(i)}" y="${H-8}" font-size="11" text-anchor="middle" fill="#7a807a">${k.m} <tspan font-family="Attila Sans Classic, sans-serif">·${k.n}</tspan></text>`;
+  });
+  s+=`</svg>`;
+  $('#c-kr3').innerHTML=s;
+})();
+
+/* ───────── 4. KPT 보드 (이 브라우저에만 저장) ───────── */
+const KEY='ssd-okr-retro-kpt-v1';
+let cards = []; try { cards = JSON.parse(localStorage.getItem(KEY)||'[]'); } catch(e){ cards=[]; }
+function saveK(){ try{ localStorage.setItem(KEY, JSON.stringify(cards)); }catch(e){} }
+function renderK(){
+  document.querySelectorAll('.kcol').forEach(col=>{
+    const c=col.dataset.col; const list=cards.filter(x=>x.col===c);
+    col.querySelector('.cnt').textContent = list.length? list.length : '';
+    col.querySelector('.cards').innerHTML = list.map(x=>`<div class="card">${esc(x.text)}<button class="x" data-id="${x.id}" title="지우기">×</button></div>`).join('');
+  });
+}
+$('#k-add').onclick=()=>{ const t=$('#k-text').value.trim(); if(!t) return;
+  cards.push({id:Date.now()+Math.random().toString(16).slice(2), col:$('#k-col').value, text:t, at:new Date().toISOString()});
+  $('#k-text').value=''; saveK(); renderK(); };
+$('#k-text').addEventListener('keydown',e=>{ if((e.metaKey||e.ctrlKey)&&e.key==='Enter'){ $('#k-add').click(); } });
+document.querySelector('.kpt').addEventListener('click',e=>{ const b=e.target.closest('.x'); if(!b) return; cards=cards.filter(x=>x.id!==b.dataset.id); saveK(); renderK(); });
+$('#k-export').onclick=async()=>{
+  const lab={keep:'Keep',problem:'Problem',try:'Try'};
+  let out = `## 신설팀 상반기 OKR 회고 — KPT (2026-09-21)\n`;
+  ['keep','problem','try'].forEach(c=>{ out+=`\n### ${lab[c]}\n`; const l=cards.filter(x=>x.col===c); out+= l.length? l.map(x=>`- ${x.text}`).join('\n')+'\n' : '- \n'; });
+  const acts=[...document.querySelectorAll('#act tbody tr')].map(tr=>[...tr.querySelectorAll('input')].map(i=>i.value.trim())).filter(r=>r.some(Boolean));
+  if(acts.length){ out+=`\n### 액션\n`+acts.map(r=>`- ${r[0]} — ${r[1]} · ${r[2]} · 측정: ${r[3]}`).join('\n')+'\n'; }
+  const ta=$('#k-out'); ta.style.display='block'; ta.value=out;
+  try{ await navigator.clipboard.writeText(out); $('#k-msg').textContent='클립보드에 복사됐다. 노션에 붙여넣기.'; }catch(e){ $('#k-msg').textContent='아래 텍스트를 직접 복사.'; }
+};
+let clearArmed=false;
+$('#k-clear').onclick=()=>{ if(!clearArmed){ clearArmed=true; $('#k-clear').textContent='정말 지우기 (한 번 더)'; setTimeout(()=>{clearArmed=false; $('#k-clear').textContent='전체 지우기';},3000); return; }
+  cards=[]; saveK(); renderK(); clearArmed=false; $('#k-clear').textContent='전체 지우기'; };
+renderK();
+
+/* ───────── 5. 액션 표 ───────── */
+const AKEY='ssd-okr-retro-act-v1';
+let acts=[]; try{ acts=JSON.parse(localStorage.getItem(AKEY)||'null')||[['','','',''],['','','',''],['','','','']]; }catch(e){ acts=[['','','',''],['','','',''],['','','','']]; }
+function renderA(){ $('#act tbody').innerHTML = acts.map((r,i)=>`<tr>${r.map((v,j)=>`<td><input data-i="${i}" data-j="${j}" value="${esc(v).replace(/"/g,'&quot;')}" placeholder="${['무엇을','누가','언제까지','무엇으로 재나'][j]}"></td>`).join('')}</tr>`).join(''); }
+$('#act').addEventListener('input',e=>{ const i=+e.target.dataset.i, j=+e.target.dataset.j; if(isNaN(i)) return; acts[i][j]=e.target.value; try{localStorage.setItem(AKEY,JSON.stringify(acts));}catch(x){} });
+$('#a-add').onclick=()=>{ acts.push(['','','','']); renderA(); };
+renderA();
+
+/* ───────── 내비: 현재 섹션 표시 + 화살표 키 ───────── */
+const secs=[...document.querySelectorAll('section.sec')];
+const links=[...document.querySelectorAll('.bar a[data-s]')];
+const io=new IntersectionObserver(es=>{ es.forEach(en=>{ if(en.isIntersecting){ links.forEach(a=>a.classList.toggle('on',a.dataset.s===en.target.id)); } }); },{rootMargin:'-40% 0px -55% 0px'});
+secs.forEach(s=>io.observe(s));
+document.addEventListener('keydown',e=>{
+  if(['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)) return;
+  if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft') return;
+  const cur=links.findIndex(a=>a.classList.contains('on')); let n=cur<0?0:cur+(e.key==='ArrowRight'?1:-1);
+  n=Math.max(0,Math.min(secs.length-1,n)); secs[n].scrollIntoView({behavior:'smooth'}); e.preventDefault();
+});
+</script>
+</body>
+</html>
