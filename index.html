@@ -140,6 +140,18 @@ table.ledger tr.sum td{border-top:1px solid var(--ink);border-bottom:none;font-w
 .export{margin-top:20px}
 .export textarea{width:100%;min-height:120px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;border:1px solid var(--rule);padding:10px;background:#fff;display:none}
 
+/* 5 끝 그림 */
+.bigq{border-top:2px solid var(--ink);padding:22px 0 26px;margin-bottom:34px;display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:start}
+.bigq h3{font-size:clamp(22px,2.6vw,30px);font-weight:700;line-height:1.3;letter-spacing:-.01em;word-break:keep-all}
+.bigq h3 em{font-style:normal;color:var(--green)}
+.bigq .qs{list-style:none;margin-top:16px}
+.bigq .qs li{display:grid;grid-template-columns:20px 1fr;gap:8px;padding:8px 0;border-bottom:1px solid var(--rule-2);font-size:14px;color:var(--ink-2);word-break:keep-all}
+.bigq .qs li b{font-family:var(--num);font-weight:600;color:var(--green)}
+.bigq .pad{background:#fff;border:1px solid var(--rule);padding:16px 18px}
+.bigq .pad label{font-size:12px;color:var(--muted);font-weight:600;display:block;margin-bottom:8px;letter-spacing:.02em}
+.bigq .pad textarea{width:100%;min-height:118px;font-family:var(--kr);font-size:15px;line-height:1.6;border:none;resize:vertical;color:var(--ink);background:transparent}
+.bigq .pad textarea:focus{outline:none}
+.bigq .pad .hint{font-size:12px;color:var(--muted);margin-top:10px;padding-top:10px;border-top:1px solid var(--rule-2);word-break:keep-all}
 /* 5 다음 */
 .next{display:grid;grid-template-columns:1.2fr .8fr;gap:40px}
 table.act{width:100%;border-collapse:collapse;font-size:13.5px}
@@ -175,7 +187,7 @@ table.act input:focus{outline:none;background:#fff}
   <a href="#s2" data-s="s2"><b>2</b>무엇을 했나</a>
   <a href="#s3" data-s="s3"><b>3</b>결과</a>
   <a href="#s4" data-s="s4"><b>4</b>KPT</a>
-  <a href="#s5" data-s="s5"><b>5</b>다음</a>
+  <a href="#s5" data-s="s5"><b>5</b>끝 그림</a>
   <span class="hint">← → 키로 이동</span>
 </nav>
 
@@ -187,25 +199,26 @@ table.act input:focus{outline:none;background:#fff}
     <div>
       <div class="kicker">맹그로브 신설 · 2026 상반기 OKR 회고</div>
       <h1>OTA 리뷰 앞자리를 <em>9</em>로 만든다,<br>우리는 무엇을 배웠나</h1>
-      <p class="sub">2월 19일 선언부터 9월 1일 굿즈 이벤트 종료까지 반년. 점수는 8.6에서 8.6으로 돌아왔고, 그 사이에 우리가 한 일과 배운 것을 장부처럼 결산한다.</p>
+      <p class="sub">2월 19일 선언부터 9월 1일 굿즈 이벤트 종료까지 반년. 점수는 8.6에서 8.6으로 돌아왔다. 그 사이 이용객 경험을 위해 무엇을 했고 무엇을 배웠는지, 다음 반기를 어떻게 설계할지 정리한다.</p>
       <div class="rules">
         <h3>회고 규칙</h3>
-        <p>사람이 아니라 설계·실행·측정을 본다. 잘한 실행이 왜 점수로 안 이어졌는지 따진다.</p>
+        <p>달성 여부를 가리려고 모이지 않는다. 다음 반기에 이용객 경험을 어떻게 올릴지 정하려고 모인다.</p>
+        <p>사람이 아니라 설계·실행·측정을 본다. 점수는 뒤따라오는 결과고, 우리가 직접 바꾸는 것은 이용객이 겪는 경험이다.</p>
         <p>실패도 자산이다. 단, 무엇을 배웠는지 문장으로 남겨야 자산이 된다.</p>
-        <p>"수고했다"로 끝내지 않는다. 하반기에 다시 할 것과 접을 것을 정한다.</p>
       </div>
     </div>
     <div class="meta">
       <dl>
-        <dt>일시</dt><dd class="num">2026-09-21 (월) 스쿼드 위클리</dd>
+        <dt>일시</dt><dd class="num">2026-09-21 (월) 16:00 ~ 17:00</dd>
         <dt>진행</dt><dd class="num">60분</dd>
+        <dt>비고</dt><dd>스쿼드 위클리와 별개로 진행</dd>
       </dl>
       <ul class="agenda">
         <li><span class="k">1</span><span>왜 이 OKR이었나 — 선언의 산수와 우리가 잡은 KR</span><span class="t">10분</span></li>
         <li><span class="k">2</span><span>무엇을 했나 — 과제 7건, 가설과 실제</span><span class="t">15분</span></li>
         <li><span class="k">3</span><span>결과 — 7채널 점수, 신규 리뷰 평균, 산술</span><span class="t">10분</span></li>
         <li><span class="k">4</span><span>KPT — Keep · Problem · Try</span><span class="t">20분</span></li>
-        <li><span class="k">5</span><span>다음 — Try를 액션으로, 하반기 재설계 질문</span><span class="t">5분</span></li>
+        <li><span class="k">5</span><span>끝 그림 — 다음 반기에 바꿀 이용객 경험 한 문장</span><span class="t">5분</span></li>
       </ul>
     </div>
   </div>
@@ -244,7 +257,6 @@ table.act input:focus{outline:none;background:#fff}
       <h3 style="margin-top:22px"><span>03-02 ~ 03-10</span>팀 아이디어 13건 (노션 아이데이션 DB)</h3>
       <p style="font-size:13.5px;color:var(--ink-2)">작성률 축 5건 — 로비 리뷰 스테이션 · 리뷰 심리 트리거 곳곳 설치 · QR 리뷰 시스템 · OTA 자동 메시지(체크아웃 후 리뷰 유도) · 체크아웃 자동 메시지 고도화</p>
       <p style="font-size:13.5px;color:var(--ink-2)">체질 축 8건 — 선제적 보상 실행 · 기대관리+공감+빠른 대응 · 유연하고 센스있는 CA 되기 · 체크인 직후 문제 확인 메시지 · 입실 15분 골든타임 메시지 · HK QC 체크리스트 강화 · 컴플레인 응대 스크립트 통일 · 어메니티 확대</p>
-      <p style="font-size:13px;color:var(--muted);margin-top:8px">모수 축(전략 ①)은 PPM 협의 의제로만 남고 지점 과제로 내려오지 않았다.</p>
     </div>
   </div>
   <div class="gap">
@@ -261,7 +273,7 @@ table.act input:focus{outline:none;background:#fff}
       </tbody>
     </table>
     </div>
-    <p style="font-size:13.5px;color:var(--ink-2);margin-top:12px;word-break:keep-all">네 KR 모두 잴 수 있었고 모두 미달이다. 특히 <strong>작성률은 10%에서 21.6%로 두 배 올랐는데 총점은 8.6 그대로</strong>였다. 실행이 아니라 총점 KR이 성과를 가린 구조였음을 3장 산술에서 확인한다.</p>
+    <p style="font-size:13.5px;color:var(--ink-2);margin-top:12px;word-break:keep-all">네 KR 모두 잴 수 있었다. 총점은 8.6에 머물렀지만 <strong>작성률은 10%에서 21.6%로 두 배</strong> 올랐다. 무엇이 실제로 움직였고 총점은 왜 따라오지 않았는지는 3장에서 본다.</p>
   </div>
 </section>
 
@@ -307,23 +319,23 @@ table.act input:focus{outline:none;background:#fff}
   </div>
   <div class="remarks">
     <div>
-      <h3>산술 — KR2를 완벽히 달성해도 9.0은 불가능했다</h3>
+      <h3>산술 — 총점이 늦게 움직이는 이유</h3>
       <div class="arith">
         <div class="row"><span>기준 시점 모수 (5/4)</span><span class="v">8,414건 · 8.6</span></div>
         <div class="row"><span>15주 실측 — 체크아웃 2,015건에서 받은 리뷰</span><span class="v">435건 · 21.6%</span></div>
-        <div class="row"><span>작성률 80% 달성 시 리뷰 1,612건, <strong>전부 10점</strong>이었다면</span><span class="v red">8.83</span></div>
-        <div class="row"><span>작성률 100%에 리뷰 2,015건, <strong>전부 10점</strong>이었다면</span><span class="v red">8.87</span></div>
-        <div class="row"><span>9.0까지 필요한 10점 리뷰 (다른 리뷰 0건 가정)</span><span class="v red">약 3,575건</span></div>
-        <div class="note">목표를 완벽히 달성하고 받은 리뷰가 전부 만점이어도 상반기 안에 9.0은 나오지 않는다. 총점은 실행의 성과를 보여줄 수 없는 지표였다. 남은 공백은 따로 있다 — 업그레이드·굿즈 <strong>대상자를 따로 세지 않아</strong> 대상자와 비대상자의 작성률·평점을 비교할 수 없다.</div>
+        <div class="row"><span>작성률 80%를 달성해 1,612건을 받고 전부 10점이었다면</span><span class="v">8.83</span></div>
+        <div class="row"><span>작성률 100%로 2,015건을 받고 전부 10점이었다면</span><span class="v">8.87</span></div>
+        <div class="row"><span>9.0에 닿는 데 필요한 10점 리뷰 (다른 리뷰 0건 가정)</span><span class="v">약 3,575건</span></div>
+        <div class="note">누적 8,900건 위에서는 한 반기의 개입이 총점을 거의 움직이지 못한다. 그래서 상반기의 성과는 총점이 아니라 <strong>이용객이 실제로 겪은 변화</strong>에서 읽어야 한다. 다음 반기에는 경험을 먼저 지표로 잡고 총점은 그 결과로 따라오게 둔다. 남은 숙제는 개입 대상자를 따로 세는 것 — 그래야 무엇이 경험을 바꿨는지 가려낼 수 있다.</div>
       </div>
     </div>
     <div>
-      <h3>9/2 결과 검증에서 나온 네 가지</h3>
+      <h3>9/2 논의에서 얻은 논점</h3>
       <ol>
-        <li>아고다 8.0에서 8.6으로 0.6점 오른 게 맞나 <span>— 아니다. 시작 전부터 8.6, 6/1 한 주 8.7, 다시 8.6</span></li>
-        <li>가설을 세우고 업그레이드를 했는데 영향과 결과가 모호하다 <span>— 채널 단위 작성률은 쟀으나 개입 대상자 단위를 세지 않아 기여도를 못 가른다</span></li>
-        <li>기여도가 크다면서 왜 그만두나 <span>— 끝난 건 굿즈(100개 소진). 업그레이드는 계속. "소진"은 판단이 아니다</span></li>
-        <li>가설·실험·경험·학습·자산화가 성장의 길이다 <span>— 수고가 의미 있게 남도록 이 회고를 한다</span></li>
+        <li><strong>점수는 수집 데이터로 말한다</strong> <span>— 3/23부터 주간 25회 수집이 기준선이다. 공유 전에 대시보드 값을 맞춘다</span></li>
+        <li><strong>기여도는 대상자 단위로만 가려진다</strong> <span>— 채널 작성률은 쟀지만 개입 대상자를 따로 세지 않아 무엇이 움직였는지 분리하지 못했다</span></li>
+        <li><strong>종료는 소진이 아니라 판단으로 한다</strong> <span>— 굿즈는 100개가 떨어져 끝났다. 무엇을 보고 접을지는 시작할 때 정해 둔다</span></li>
+        <li><strong>수고는 자산으로 남을 때 의미를 갖는다</strong> <span>— 가설·실험·학습·기록. 이 회고가 그 마지막 단계다</span></li>
       </ol>
     </div>
   </div>
@@ -334,7 +346,7 @@ table.act input:focus{outline:none;background:#fff}
   <div class="sec-head">
     <div class="n">4</div>
     <h2>KPT</h2>
-    <p class="lead">한 장에 한 가지. 점수가 아니라 설계·실행·측정 중 어디에 대한 이야기인지 붙여 쓴다.</p>
+    <p class="lead">한 장에 한 가지. 여기서 모은 것이 5장 끝 그림의 재료가 된다.</p>
   </div>
   <div class="kpt-tools">
     <select id="k-col">
@@ -372,11 +384,29 @@ table.act input:focus{outline:none;background:#fff}
 <section class="sec" id="s5">
   <div class="sec-head">
     <div class="n">5</div>
-    <h2>다음</h2>
-    <p class="lead">Try 중 하반기에 할 것만 고른다. 담당·기한·측정 방법이 비면 액션이 아니다.</p>
+    <h2>끝 그림</h2>
+    <p class="lead">KPT는 재료다. 오늘 정할 것은 다음 반기에 이용객이 겪는 경험을 무엇으로 바꿀 것인가다.</p>
   </div>
+
+  <div class="bigq">
+    <div>
+      <h3>KPT로 우리가 그릴 <em>끝 그림</em>은 무엇인가?</h3>
+      <ul class="qs">
+        <li><b>1</b><span>반년 뒤 이용객이 맹그로브 신설을 어떻게 이야기하고 있으면 우리는 성공했다고 말할 것인가</span></li>
+        <li><b>2</b><span>그 이야기를 만들려면 이용객 경험의 어느 지점을 바꿔야 하는가</span></li>
+        <li><b>3</b><span>그 변화를 우리는 무엇으로 확인할 것인가 — 총점 말고</span></li>
+      </ul>
+    </div>
+    <div class="pad">
+      <label>오늘 합의한 한 문장</label>
+      <textarea id="endgame" placeholder="다음 반기에 우리는 —"></textarea>
+      <div class="hint">이 문장이 정해지면 아래 액션은 전부 여기서 역산한다. 문장에 담기지 않는 액션은 이번에 하지 않는다.</div>
+    </div>
+  </div>
+
   <div class="next">
     <div>
+      <h3 style="font-size:15px;font-weight:700;margin-bottom:12px">끝 그림에서 역산한 액션</h3>
       <table class="act" id="act">
         <thead><tr><th style="width:44%">액션</th><th>담당</th><th>기한</th><th>무엇으로 재나</th></tr></thead>
         <tbody></tbody>
@@ -393,7 +423,7 @@ table.act input:focus{outline:none;background:#fff}
       </ol>
       <h3 style="margin-top:22px">회의에서 확인할 빈칸</h3>
       <ol>
-        <li>룸 업그레이드 누적 건수 — 워크플로 기록 역산</li>
+        <li>7월 이후 환대 기록이 없다 — 실행이 멈춘 것인지 기록만 멈춘 것인지</li>
         <li>커피쿠폰 100부 집행 여부</li>
         <li>굿즈 수량 차이 — 준비 100 vs 지급 85 + 잔여 3</li>
         <li>9/1 안내의 "5월 8.0" 출처 화면</li>
@@ -451,11 +481,11 @@ const PROJECTS = [
   {t:"압도적 환대 룸 업그레이드 + 레터 + 리뷰 요청", who:"3/16 원칙 · 3/19부터 트래커 매일 게시 · 진행 중",
    h:"무상 업그레이드 경험이 10점 리뷰로 이어진다.",
    d:"아고다·에어비앤비 단박(1~2박) 대상, 하루 최대 5객실, 1단계 업그레이드, 4개국어 안내, 워크플로 기록. 전사 프로그램(3월 2주~, 업그레이드 1건+얼리체크인)과 병행.",
-   r:"<span class='r'>건수·리뷰 전환 미집계.</span> 지금도 진행 중 (9/2 공지).", q:"남는 것: 워크플로 기록으로 대상자 수 역산 가능. \"대상자 리뷰 작성률\"을 잴 유일한 원천."},
+   r:"<span class='g'>신설 66건</span> — 업그레이드 41건 · 얼리체크인 25건. 3월 36건 → 4월 9 → 5월 9 → 6월 12로 정착. <span class='r'>7월 이후 기록 없음.</span>", q:"남는 것: 환대 기록 시트의 건바이건 원장(이용객·OTA·예약번호·객실 타입). 리뷰 전환은 아고다 예약 상당수가 서드파티라 개인 단위로 확인할 수 없었다."},
   {t:"K-굿즈 리뷰 리워드 — 아고다 10점 리뷰 인증 시 증정", who:"3/19 제안 → 3/25 승인 → 4/6 시작 → 9/1 종료",
    h:"20대 중화권 여성 솔로 여행객(61%·70.5%) 페르소나에 K-굿즈가 통해 월 100~120건 리뷰를 더 끌어낸다.",
    d:"발주 186,660원, 100세트를 사흘 만에 패키징(4/5 40개), 4개국어 POP. 10점 리뷰 확인 후 증정, 지급현황 시트 기록.",
-   r:"<span class='g'>실행은 빨랐다.</span> 85개 지급·3개 잔여. <span class='r'>총점 8.6 → 8.6.</span> 리뷰 증가 속도(주 29건)에 부스팅 흔적 없음.", q:"남는 것: 10점 리뷰 85건의 확인 기록, 페르소나 데이터. 9/2 지적의 본체."},
+   r:"85개 지급·3개 잔여. <span class='r'>총점 8.6 → 8.6.</span> 리뷰 증가 속도(주 29건)에 부스팅 흔적 없음.", q:"남는 것: 10점 리뷰 85건의 확인 기록, 페르소나 데이터. 9/2 지적의 본체."},
   {t:"아고다 언더도어 레터", who:"4/11 ~ 5/15 · HK 세팅",
    h:"객실 안 레터가 체크아웃 동선에서 리뷰를 상기시킨다.",
    d:"수백 장 인쇄, 퇴실 전날 객실 투입. 수령 확인 36개.",
@@ -609,6 +639,8 @@ $('#k-export').onclick=async()=>{
   const lab={keep:'Keep',problem:'Problem',try:'Try'};
   let out = `## 신설팀 상반기 OKR 회고 — KPT (2026-09-21)\n`;
   ['keep','problem','try'].forEach(c=>{ out+=`\n### ${lab[c]}\n`; const l=cards.filter(x=>x.col===c); out+= l.length? l.map(x=>`- ${x.text}`).join('\n')+'\n' : '- \n'; });
+  const eg=($('#endgame').value||'').trim();
+  out+=`\n### 끝 그림\n${eg? eg+'\n' : '- \n'}`;
   const acts=[...document.querySelectorAll('#act tbody tr')].map(tr=>[...tr.querySelectorAll('input')].map(i=>i.value.trim())).filter(r=>r.some(Boolean));
   if(acts.length){ out+=`\n### 액션\n`+acts.map(r=>`- ${r[0]} — ${r[1]} · ${r[2]} · 측정: ${r[3]}`).join('\n')+'\n'; }
   const ta=$('#k-out'); ta.style.display='block'; ta.value=out;
@@ -626,6 +658,11 @@ function renderA(){ $('#act tbody').innerHTML = acts.map((r,i)=>`<tr>${r.map((v,
 $('#act').addEventListener('input',e=>{ const i=+e.target.dataset.i, j=+e.target.dataset.j; if(isNaN(i)) return; acts[i][j]=e.target.value; try{localStorage.setItem(AKEY,JSON.stringify(acts));}catch(x){} });
 $('#a-add').onclick=()=>{ acts.push(['','','','']); renderA(); };
 renderA();
+
+/* 5. 끝 그림 한 문장 */
+const EKEY='ssd-okr-retro-endgame-v1';
+try{ $('#endgame').value = localStorage.getItem(EKEY) || ''; }catch(e){}
+$('#endgame').addEventListener('input',e=>{ try{ localStorage.setItem(EKEY, e.target.value); }catch(x){} });
 
 /* ───────── 내비: 현재 섹션 표시 + 화살표 키 ───────── */
 const secs=[...document.querySelectorAll('section.sec')];
