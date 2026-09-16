@@ -254,14 +254,14 @@ table.act input:focus{outline:none;background:#fff}
       <thead><tr><th>KR</th><th>목표</th><th>상반기 측정</th><th>판정</th></tr></thead>
       <tbody>
         <tr><td>총점 앞자리 9</td><td class="num">8.6 → 9.0</td><td>주간 수집 25회 (3/23~9/14)</td><td><span class="tag no">8.6, 변동 없음</span></td></tr>
-        <tr><td>KR1 아고다 모수</td><td class="num">월 +700건</td><td>측정 없음 (PPM 협의 미착수)</td><td><span class="tag">미측정</span></td></tr>
-        <tr><td>KR2 작성률</td><td class="num">10% → 80%</td><td>분모(체크아웃 수)를 세지 않아 산출 불가. 리뷰 증가는 주 29건 수준</td><td><span class="tag">미측정</span></td></tr>
+        <tr><td>KR1 아고다 모수</td><td class="num">월 +700건</td><td>아고다 채널 체크아웃 20주 수집. 월 579~620건 (선언 당시 약 500건)</td><td><span class="tag no">+80~120건</span></td></tr>
+        <tr><td>KR2 작성률</td><td class="num">10% → 80%</td><td>주간 실측 15주(4/13~7/20). 신규 435건 ÷ 체크아웃 2,015건</td><td><span class="tag no">21.6%</span></td></tr>
         <tr><td>KR3 신규 리뷰 평균</td><td class="num">9.5 이상</td><td>4월부터 대시보드에 월별 축적. 3~8월 8.20~9.16</td><td><span class="tag no">최고 9.16 (5월)</span></td></tr>
-        <tr><td>KR4 하드웨어 4종 해결률</td><td class="num">90%</td><td>수행과제 단위로 처리, 해결률은 집계 안 함</td><td><span class="tag">미측정</span></td></tr>
+        <tr><td>KR4 하드웨어 4종 해결률</td><td class="num">90%</td><td>수행과제 12건 중 완료 7건. 욕실·배수·방음 직접 과제는 4건 중 2건</td><td><span class="tag no">58% · 50%</span></td></tr>
       </tbody>
     </table>
     </div>
-    <p style="font-size:13.5px;color:var(--ink-2);margin-top:12px;word-break:keep-all">총점은 모수 8천 건이 눌러서 어떤 개입도 소수점 둘째 자리에서 끝난다. 유일하게 잴 수 있었던 KR3를 3장에서 기준으로 쓴다.</p>
+    <p style="font-size:13.5px;color:var(--ink-2);margin-top:12px;word-break:keep-all">네 KR 모두 잴 수 있었고 모두 미달이다. 특히 <strong>작성률은 10%에서 21.6%로 두 배 올랐는데 총점은 8.6 그대로</strong>였다. 실행이 아니라 총점 KR이 성과를 가린 구조였음을 3장 산술에서 확인한다.</p>
   </div>
 </section>
 
@@ -283,10 +283,15 @@ table.act input:focus{outline:none;background:#fff}
   <div class="sec-head">
     <div class="n">3</div>
     <h2>결과</h2>
-    <p class="lead">7개 채널 중 9.0(5점제 4.5)에 닿은 채널은 없다. 리뷰는 늘었고 점수는 제자리다.</p>
+    <p class="lead">7개 채널 중 9.0(5점제 4.5)에 닿은 채널은 없다. 작성률은 두 배로 올랐고 점수는 제자리다.</p>
   </div>
   <div class="tbl-scroll">
   <table class="ledger" id="chan"></table>
+  </div>
+  <div class="chart" style="margin-top:36px">
+    <h3>아고다 리뷰 작성률 (KR2) — 주간 실측 15회</h3>
+    <div class="sub">분자 = 그 주 신규 리뷰 · 분모 = 그 주 아고다 채널 체크아웃 · 수집 간격 10일 초과 주는 제외</div>
+    <div id="c-rate"></div>
   </div>
   <div class="res-grid">
     <div class="chart">
@@ -302,21 +307,21 @@ table.act input:focus{outline:none;background:#fff}
   </div>
   <div class="remarks">
     <div>
-      <h3>산술 — 총점으로는 읽을 수 없었던 이유</h3>
+      <h3>산술 — KR2를 완벽히 달성해도 9.0은 불가능했다</h3>
       <div class="arith">
-        <div class="row"><span>굿즈 시작 시점 모수 (5/4)</span><span class="v">8,414건 · 8.6</span></div>
-        <div class="row"><span>10점 리뷰 85건이 전부 더해졌을 때 총점</span><span class="v">8.61</span></div>
-        <div class="row"><span>지금 모수 (9/14)</span><span class="v">8,937건 · 8.6</span></div>
+        <div class="row"><span>기준 시점 모수 (5/4)</span><span class="v">8,414건 · 8.6</span></div>
+        <div class="row"><span>15주 실측 — 체크아웃 2,015건에서 받은 리뷰</span><span class="v">435건 · 21.6%</span></div>
+        <div class="row"><span>작성률 80% 달성 시 리뷰 1,612건, <strong>전부 10점</strong>이었다면</span><span class="v red">8.83</span></div>
+        <div class="row"><span>작성률 100%에 리뷰 2,015건, <strong>전부 10점</strong>이었다면</span><span class="v red">8.87</span></div>
         <div class="row"><span>9.0까지 필요한 10점 리뷰 (다른 리뷰 0건 가정)</span><span class="v red">약 3,575건</span></div>
-        <div class="row"><span>지금 속도 (월 약 130건)로 걸리는 시간</span><span class="v red">27개월 이상</span></div>
-        <div class="note">개입의 효과는 총점이 아니라 "대상자의 리뷰 작성률"과 "대상자 평점 vs 비대상자"로만 읽힌다. 상반기엔 둘 다 세지 않았다.</div>
+        <div class="note">목표를 완벽히 달성하고 받은 리뷰가 전부 만점이어도 상반기 안에 9.0은 나오지 않는다. 총점은 실행의 성과를 보여줄 수 없는 지표였다. 남은 공백은 따로 있다 — 업그레이드·굿즈 <strong>대상자를 따로 세지 않아</strong> 대상자와 비대상자의 작성률·평점을 비교할 수 없다.</div>
       </div>
     </div>
     <div>
       <h3>9/2 결과 검증에서 나온 네 가지</h3>
       <ol>
         <li>아고다 8.0에서 8.6으로 0.6점 오른 게 맞나 <span>— 아니다. 시작 전부터 8.6, 6/1 한 주 8.7, 다시 8.6</span></li>
-        <li>가설을 세우고 업그레이드를 했는데 영향과 결과가 모호하다 <span>— 초기 기획에 영향력을 분석할 설계가 없었다</span></li>
+        <li>가설을 세우고 업그레이드를 했는데 영향과 결과가 모호하다 <span>— 채널 단위 작성률은 쟀으나 개입 대상자 단위를 세지 않아 기여도를 못 가른다</span></li>
         <li>기여도가 크다면서 왜 그만두나 <span>— 끝난 건 굿즈(100개 소진). 업그레이드는 계속. "소진"은 판단이 아니다</span></li>
         <li>가설·실험·경험·학습·자산화가 성장의 길이다 <span>— 수고가 의미 있게 남도록 이 회고를 한다</span></li>
       </ol>
@@ -405,6 +410,12 @@ table.act input:focus{outline:none;background:#fff}
 const WEEKS = ["03-23","04-06","04-13","04-20","04-27","05-04","05-11","05-18","05-25","06-01","06-08","06-15","06-22","06-29","07-06","07-13","07-20","07-27","08-03","08-10","08-17","08-24","08-31","09-07","09-14"];
 const AGODA = { score:[8.6,8.6,8.6,8.6,8.6,8.6,8.6,8.6,8.6,8.7,8.6,8.6,8.6,8.6,8.6,8.6,8.6,8.6,8.6,8.6,8.6,8.6,8.6,8.6,8.6],
                 count:[8200,8284,8310,8345,8372,8414,8451,8472,8510,8552,8570,8603,8627,8651,8674,8702,8719,8738,8751,8773,8802,8845,8869,8910,8937] };
+const RATE = [
+  {w:"04-13",n:26,c:124},{w:"04-20",n:35,c:141},{w:"04-27",n:27,c:146},
+  {w:"05-04",n:42,c:117},{w:"05-11",n:37,c:129},{w:"05-18",n:21,c:169},{w:"05-25",n:38,c:175},
+  {w:"06-01",n:42,c:142},{w:"06-08",n:18,c:119},{w:"06-15",n:33,c:123},{w:"06-22",n:24,c:123},{w:"06-29",n:24,c:113},
+  {w:"07-06",n:23,c:128},{w:"07-13",n:28,c:119},{w:"07-20",n:17,c:147}
+].map(r=>({...r, pct: r.n/r.c*100}));
 const KR3 = [ {m:"3월",n:35,avg:8.94,n10:17,le6:3},{m:"4월",n:44,avg:8.93,n10:17,le6:2},{m:"5월",n:55,avg:9.16,n10:28,le6:1},
               {m:"6월",n:22,avg:8.20,n10:8,le6:3},{m:"7월",n:17,avg:8.92,n10:7,le6:0},{m:"8월",n:39,avg:8.68,n10:18,le6:5},{m:"9월",n:18,avg:8.51,n10:6,le6:2,partial:true} ];
 const CHANNELS = [
@@ -436,7 +447,7 @@ const PROJECTS = [
   {t:"OTA 자동 메시지 — 체크아웃 후 리뷰 유도", who:"3/11 착수",
    h:"체크아웃 직후 리뷰 링크가 담긴 메시지를 보내면 작성률이 오른다.",
    d:"아고다에 리뷰 링크·QR 발급을 요청 → 3/15 \"예약번호 연계 자동 발송이라 제공 불가\" 회신. 예약확정·체크인 전일·체크아웃 3종 안내 메시지에 리뷰 이벤트 문구를 넣어 세팅.",
-   r:"<span class='r'>작성률 미측정.</span> 분모(체크아웃 수) 대비 리뷰 수를 세지 않았다.", q:"남는 것: 메시지 3종 자산, 아고다 정책 확인. 7/13 위클리에서 메시지 개편은 연내 별도 검증 후 판단으로 보류."},
+   r:"<span class='g'>작성률 10% → 21.6%.</span> 15주 실측, 최고 35.9%(5/4). 다만 이 메시지만의 기여분은 분리되지 않는다.", q:"남는 것: 메시지 3종 자산, 아고다 정책 확인, 주간 작성률 측정 체계. 7/13 위클리에서 메시지 개편은 연내 별도 검증 후 판단으로 보류."},
   {t:"압도적 환대 룸 업그레이드 + 레터 + 리뷰 요청", who:"3/16 원칙 · 3/19부터 트래커 매일 게시 · 진행 중",
    h:"무상 업그레이드 경험이 10점 리뷰로 이어진다.",
    d:"아고다·에어비앤비 단박(1~2박) 대상, 하루 최대 5객실, 1단계 업그레이드, 4개국어 안내, 워크플로 기록. 전사 프로그램(3월 2주~, 업그레이드 1건+얼리체크인)과 병행.",
@@ -460,7 +471,7 @@ const PROJECTS = [
   {t:"VOC 대시보드 · 수행과제 체계", who:"4/8 DB → 6/10 슬랙 알림봇 → 7/1 6월 Critical 3건",
    h:"리뷰 → 변심 트리거 → 수행과제 루프가 전략 ③의 엔진이 된다.",
    d:"월별 리뷰 분석, 수행과제 등록·진행 알림, 주간 리포트(9.0 기준선 미달 리뷰 전수 논의), 6월 HK 정비 퀄리티·인스펙션 체크리스트·프론트 공백 사이니지.",
-   r:"<span class='g'>매주 FO Weekly에서 소비, 정착.</span> 상반기 과제 중 유일하게 측정 가능한 자산.", q:"남는 것: KR3(신규 리뷰 평균)을 잴 수 있게 된 것 자체. 6월 8.20 급락과 HK 검수 붕괴 시기가 겹친다."}
+   r:"<span class='g'>매주 FO Weekly에서 소비, 정착.</span> 수행과제 12건 중 완료 7건(58%).", q:"남는 것: KR2·KR3·KR4를 잴 수 있게 된 것 자체. 6월 8.20 급락과 HK 검수 붕괴 시기가 겹친다."}
 ];
 
 /* ───────── 렌더 ───────── */
@@ -519,6 +530,31 @@ function spark(vals, max){
   });
   h += `<tr class="sum"><td>9.0 달성 채널</td><td class="n" colspan="3">0 / 7</td><td colspan="5" style="font-weight:400;color:var(--ink-2)">10점 환산 기준. 에어비앤비 4.72 = 9.44, NOL 3.0 = 6.0</td></tr></tbody>`;
   $('#chan').innerHTML = h;
+})();
+
+// 3. KR2 작성률 — 목표와의 거리를 보여주는 게 목적이라 축을 85%까지 연다
+(function(){
+  const W=1100,H=250,pl=44,pr=120,pt=18,pb=32; const lo=0,hi=85;
+  const X=i=>pl+i*(W-pl-pr)/(RATE.length-1), Y=v=>pt+(hi-v)/(hi-lo)*(H-pt-pb);
+  const avg = RATE.reduce((a,r)=>a+r.n,0)/RATE.reduce((a,r)=>a+r.c,0)*100;
+  let s=`<svg viewBox="0 0 ${W} ${H}">`;
+  [0,20,40,60].forEach(g=>{ s+=`<line x1="${pl}" y1="${Y(g)}" x2="${W-pr}" y2="${Y(g)}" stroke="#e6e2d9"/><text x="${pl-8}" y="${Y(g)+4}" font-size="11" text-anchor="end" fill="#7a807a" font-family="Attila Sans Classic, sans-serif">${g}%</text>`; });
+  // 목표 80 · 중간목표 60 · 선언 당시 10
+  s+=`<line x1="${pl}" y1="${Y(80)}" x2="${W-pr}" y2="${Y(80)}" stroke="#b3261e" stroke-dasharray="4 4"/><text x="${W-pr+8}" y="${Y(80)+4}" font-size="11.5" fill="#b3261e">목표 80%</text>`;
+  s+=`<line x1="${pl}" y1="${Y(60)}" x2="${W-pr}" y2="${Y(60)}" stroke="#b3261e" stroke-dasharray="2 5" opacity=".5"/><text x="${W-pr+8}" y="${Y(60)+4}" font-size="11.5" fill="#b3261e" opacity=".75">중간 60%</text>`;
+  s+=`<line x1="${pl}" y1="${Y(10)}" x2="${W-pr}" y2="${Y(10)}" stroke="#7a807a" stroke-dasharray="4 4"/><text x="${W-pr+8}" y="${Y(10)+4}" font-size="11.5" fill="#7a807a">선언 당시 10%</text>`;
+  // 실측 평균
+  s+=`<line x1="${pl}" y1="${Y(avg)}" x2="${W-pr}" y2="${Y(avg)}" stroke="#24603f" opacity=".35"/><text x="${W-pr+8}" y="${Y(avg)+4}" font-size="11.5" fill="#24603f" font-weight="600">평균 ${avg.toFixed(1)}%</text>`;
+  const d = RATE.map((r,i)=>(i?'L':'M')+X(i).toFixed(1)+' '+Y(r.pct).toFixed(1)).join(' ');
+  s+=`<path d="${d}" fill="none" stroke="#24603f" stroke-width="2" stroke-linejoin="round"/>`;
+  const iMax = RATE.reduce((b,r,i)=>r.pct>RATE[b].pct?i:b,0), iEnd = RATE.length-1;
+  [iMax,iEnd].forEach(i=>{ s+=`<circle cx="${X(i)}" cy="${Y(RATE[i].pct)}" r="4.5" fill="#24603f" stroke="#f6f4ee" stroke-width="2"/>`;
+    // 끝점은 평균선·기준선 라벨과 세로로 겹치므로 점 왼쪽에 세운다
+    const lx = i===iEnd ? X(i)-10 : X(i), ly = i===iEnd ? Y(RATE[i].pct)+4 : Y(RATE[i].pct)-11, anc = i===iEnd ? 'end' : 'middle';
+    s+=`<text x="${lx}" y="${ly}" font-size="11.5" text-anchor="${anc}" fill="#1b1f1c" font-family="Attila Sans Classic, sans-serif" font-weight="600">${RATE[i].pct.toFixed(1)}%</text>`; });
+  RATE.forEach((r,i)=>{ if(i%3===0||i===iEnd) s+=`<text x="${X(i)}" y="${H-10}" font-size="11" text-anchor="middle" fill="#7a807a" font-family="Attila Sans Classic, sans-serif">${r.w.replace('-','/')}</text>`; });
+  s+=`</svg>`;
+  $('#c-rate').innerHTML=s;
 })();
 
 // 3. 아고다 주간 라인
