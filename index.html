@@ -121,6 +121,10 @@ table.ledger tr.sum td{border-top:1px solid var(--ink);border-bottom:none;font-w
 .remarks li span{color:var(--muted);font-size:12.5px}
 
 /* 4 KPT */
+.howto{background:var(--paper-2);border-left:3px solid var(--green);padding:14px 18px;margin-bottom:20px}
+.howto p{font-size:13.5px;color:var(--ink-2);word-break:keep-all}
+.howto p+p{margin-top:5px}
+.howto b{color:var(--ink)}
 .kpt-tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
 .kpt-tools select,.kpt-tools input,.kpt-tools textarea{font-family:var(--kr);font-size:14px;border:1px solid var(--rule);background:#fff;padding:8px 10px;color:var(--ink)}
 .kpt-tools textarea{flex:1 1 320px;min-height:42px;resize:vertical}
@@ -139,7 +143,9 @@ table.ledger tr.sum td{border-top:1px solid var(--ink);border-bottom:none;font-w
 .card .x:hover{color:var(--red)}
 .kcol .cnt{font-family:var(--num);color:var(--muted);font-size:13px;margin-left:6px}
 .export{margin-top:20px}
-.export textarea{width:100%;min-height:120px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;border:1px solid var(--rule);padding:10px;background:#fff;display:none}
+.export #k-out{width:100%;min-height:120px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;border:1px solid var(--rule);padding:10px;background:#fff;display:none;margin-top:10px}
+.export #k-import{margin-top:12px}
+.export #k-in{width:100%;min-height:150px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;border:1px solid var(--rule);padding:10px;background:#fff;resize:vertical}
 
 /* 5 끝 그림 */
 .bigq{border-top:2px solid var(--ink);padding:22px 0 26px;margin-bottom:34px;display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:start}
@@ -348,6 +354,10 @@ table.act input:focus{outline:none;background:#fff}
     <h2>KPT</h2>
     <p class="lead">한 장에 한 가지. 여기서 모은 것이 5장 끝 그림의 재료가 된다.</p>
   </div>
+  <div class="howto">
+    <p><b>회의 전에</b> — 1~3장을 읽고 각자 이 화면에서 KPT를 채웁니다. 쓴 내용은 이 브라우저에 저장되니 닫았다 다시 열어도 남아 있습니다. 다 쓰면 <b>「내 KPT 복사하기」</b>를 눌러 슬랙 스레드에 붙여 주세요.</p>
+    <p><b>9/21 회의에서</b> — 받은 것을 <b>「받은 KPT 합치기」</b>로 한 화면에 모아 함께 읽고, 5장 끝 그림으로 넘어갑니다.</p>
+  </div>
   <div class="kpt-tools">
     <input id="k-who" placeholder="작성자" autocomplete="off" spellcheck="false">
     <select id="k-col">
@@ -374,10 +384,15 @@ table.act input:focus{outline:none;background:#fff}
     </div>
   </div>
   <div class="export">
-    <button class="btn ghost small" id="k-export">노션에 붙일 텍스트 만들기</button>
+    <button class="btn ghost small" id="k-export">내 KPT 복사하기</button>
+    <button class="btn ghost small" id="k-import-open">받은 KPT 합치기</button>
     <button class="btn ghost small" id="k-clear">전체 지우기</button>
     <span id="k-msg" style="font-size:12.5px;color:var(--muted);margin-left:8px"></span>
     <textarea id="k-out" readonly></textarea>
+    <div id="k-import" hidden>
+      <textarea id="k-in" placeholder="슬랙에서 받은 텍스트를 붙여넣으세요. 여러 사람 것을 한꺼번에 붙여도 됩니다."></textarea>
+      <button class="btn small" id="k-merge" style="margin-top:8px">합치기</button>
+    </div>
   </div>
 </section>
 
@@ -623,15 +638,50 @@ $('#k-text').addEventListener('keydown',e=>{ if((e.metaKey||e.ctrlKey)&&e.key===
 document.querySelector('.kpt').addEventListener('click',e=>{ const b=e.target.closest('.x'); if(!b) return; cards=cards.filter(x=>x.id!==b.dataset.id); saveK(); renderK(); });
 $('#k-export').onclick=async()=>{
   const lab={keep:'Keep',problem:'Problem',try:'Try'};
-  let out = `## 신설팀 상반기 OKR 회고 — KPT (2026-09-21)\n`;
+  const me=($('#k-who').value||'').trim();
+  let out = `## 신설팀 상반기 OKR 회고 — KPT${me?` · ${me}`:''} (2026-09-21)\n`;
   ['keep','problem','try'].forEach(c=>{ out+=`\n### ${lab[c]}\n`; const l=cards.filter(x=>x.col===c); out+= l.length? l.map(x=>`- ${x.text}${x.who?` (${x.who})`:''}`).join('\n')+'\n' : '- \n'; });
   const eg=($('#endgame').value||'').trim();
-  out+=`\n### 끝 그림\n${eg? eg+'\n' : '- \n'}`;
+  if(eg) out+=`\n### 끝 그림\n${eg}\n`;   // 회의에서 합의한 뒤에만 실린다
   const acts=[...document.querySelectorAll('#act tbody tr')].map(tr=>[...tr.querySelectorAll('input')].map(i=>i.value.trim())).filter(r=>r.some(Boolean));
   if(acts.length){ out+=`\n### 액션\n`+acts.map(r=>`- ${r[0]} — ${r[1]} · ${r[2]} · 측정: ${r[3]}`).join('\n')+'\n'; }
   const ta=$('#k-out'); ta.style.display='block'; ta.value=out;
-  try{ await navigator.clipboard.writeText(out); $('#k-msg').textContent='클립보드에 복사됐다. 노션에 붙여넣기.'; }catch(e){ $('#k-msg').textContent='아래 텍스트를 직접 복사.'; }
+  try{ await navigator.clipboard.writeText(out); $('#k-msg').textContent='복사됐다. 슬랙 스레드에 붙여넣기.'; }catch(e){ $('#k-msg').textContent='아래 텍스트를 직접 복사.'; }
 };
+/* 받은 KPT 합치기 — 복사 텍스트를 그대로 역파싱한다. 여러 사람 것을 한 번에 붙여도 된다. */
+function parseKpt(text){
+  const map={keep:'keep', problem:'problem', try:'try'};
+  let col=null; const out=[];
+  text.split(/\r?\n/).forEach(line=>{
+    const h=line.match(/^\s*#{1,6}\s*(Keep|Problem|Try)\s*$/i);
+    if(h){ col=map[h[1].toLowerCase()]; return; }
+    if(/^\s*#{1,6}\s/.test(line)){ col=null; return; }   // 끝 그림 등 다른 섹션은 건너뛴다
+    if(!col) return;
+    const m=line.match(/^\s*[-*•]\s+(.*)$/);
+    if(!m) return;
+    let body=m[1].trim(); if(!body) return;
+    let who='';
+    const w=body.match(/^(.*\S)\s*\(([^()]{1,24})\)\s*$/);   // 끝의 (작성자)만 분리
+    if(w){ body=w[1].trim(); who=w[2].trim(); }
+    if(body) out.push({col, text:body, who});
+  });
+  return out;
+}
+$('#k-import-open').onclick=()=>{ const box=$('#k-import'); box.hidden=!box.hidden; if(!box.hidden) $('#k-in').focus(); };
+$('#k-merge').onclick=()=>{
+  const parsed=parseKpt($('#k-in').value||'');
+  if(!parsed.length){ $('#k-msg').textContent='합칠 항목을 찾지 못했다. 복사한 텍스트 전체를 붙여넣었는지 확인.'; return; }
+  const key=x=>`${x.col}|${x.who}|${x.text}`;
+  const seen=new Set(cards.map(key));
+  let added=0, dup=0;
+  parsed.forEach(x=>{ if(seen.has(key(x))){ dup++; return; }
+    seen.add(key(x)); added++;
+    cards.push({id:Date.now()+Math.random().toString(16).slice(2), who:x.who, col:x.col, text:x.text, at:new Date().toISOString()}); });
+  saveK(); renderK();
+  $('#k-in').value=''; $('#k-import').hidden=true;
+  $('#k-msg').textContent=`${added}장 합침${dup?` · 중복 ${dup}장 건너뜀`:''}.`;
+};
+
 let clearArmed=false;
 $('#k-clear').onclick=()=>{ if(!clearArmed){ clearArmed=true; $('#k-clear').textContent='정말 지우기 (한 번 더)'; setTimeout(()=>{clearArmed=false; $('#k-clear').textContent='전체 지우기';},3000); return; }
   cards=[]; saveK(); renderK(); clearArmed=false; $('#k-clear').textContent='전체 지우기'; };
