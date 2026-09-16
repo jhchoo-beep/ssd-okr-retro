@@ -124,6 +124,7 @@ table.ledger tr.sum td{border-top:1px solid var(--ink);border-bottom:none;font-w
 .kpt-tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
 .kpt-tools select,.kpt-tools input,.kpt-tools textarea{font-family:var(--kr);font-size:14px;border:1px solid var(--rule);background:#fff;padding:8px 10px;color:var(--ink)}
 .kpt-tools textarea{flex:1 1 320px;min-height:42px;resize:vertical}
+.kpt-tools #k-who{width:104px;flex:0 0 auto}
 .btn{font-family:var(--kr);font-size:13.5px;padding:9px 14px;border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer}
 .btn.ghost{background:transparent;color:var(--ink)}
 .btn.small{font-size:12px;padding:6px 10px}
@@ -348,6 +349,7 @@ table.act input:focus{outline:none;background:#fff}
     <p class="lead">한 장에 한 가지. 여기서 모은 것이 5장 끝 그림의 재료가 된다.</p>
   </div>
   <div class="kpt-tools">
+    <input id="k-who" placeholder="작성자" autocomplete="off" spellcheck="false">
     <select id="k-col">
       <option value="keep">Keep</option><option value="problem">Problem</option><option value="try">Try</option>
     </select>
@@ -411,7 +413,6 @@ table.act input:focus{outline:none;background:#fff}
     </table>
     <button class="btn ghost small" id="a-add" style="margin-top:10px">행 추가</button>
   </div>
-  <p class="src">출처 — 슬랙 #be-ops-cm(2/19) · #be-ops-ssd-squad(3/2 ~ 9/2 스레드, SSD OKR Tracker) · #be-ops-fo(9/2 스레드) · 노션 [OKR] 즉시 실행 가능한 아이템…9로 만든다 · 신설/동대문 Squad Weekly 260309·260323 · VOC 대시보드 ota_scores(주간 수집 3/23~9/14)·reviews(월별 수집 표본). 점수 만점: 아고다·부킹·트립·익스피디아·여기어때 10점, 에어비앤비·NOL 5점.</p>
 </section>
 
 </main>
@@ -608,18 +609,22 @@ function renderK(){
   document.querySelectorAll('.kcol').forEach(col=>{
     const c=col.dataset.col; const list=cards.filter(x=>x.col===c);
     col.querySelector('.cnt').textContent = list.length? list.length : '';
-    col.querySelector('.cards').innerHTML = list.map(x=>`<div class="card">${esc(x.text)}<button class="x" data-id="${x.id}" title="지우기">×</button></div>`).join('');
+    col.querySelector('.cards').innerHTML = list.map(x=>`<div class="card">${x.who?`<div class="by">${esc(x.who)}</div>`:''}${esc(x.text)}<button class="x" data-id="${x.id}" title="지우기">×</button></div>`).join('');
   });
 }
+// 작성자는 마지막 입력값을 기억한다 — 같은 사람이 여러 장 쓰는 동안 다시 치지 않게
+const WKEY='ssd-okr-retro-who-v1';
+try{ $('#k-who').value = localStorage.getItem(WKEY) || ''; }catch(e){}
+$('#k-who').addEventListener('input',e=>{ try{ localStorage.setItem(WKEY, e.target.value); }catch(x){} });
 $('#k-add').onclick=()=>{ const t=$('#k-text').value.trim(); if(!t) return;
-  cards.push({id:Date.now()+Math.random().toString(16).slice(2), col:$('#k-col').value, text:t, at:new Date().toISOString()});
-  $('#k-text').value=''; saveK(); renderK(); };
+  cards.push({id:Date.now()+Math.random().toString(16).slice(2), who:$('#k-who').value.trim(), col:$('#k-col').value, text:t, at:new Date().toISOString()});
+  $('#k-text').value=''; saveK(); renderK(); $('#k-text').focus(); };
 $('#k-text').addEventListener('keydown',e=>{ if((e.metaKey||e.ctrlKey)&&e.key==='Enter'){ $('#k-add').click(); } });
 document.querySelector('.kpt').addEventListener('click',e=>{ const b=e.target.closest('.x'); if(!b) return; cards=cards.filter(x=>x.id!==b.dataset.id); saveK(); renderK(); });
 $('#k-export').onclick=async()=>{
   const lab={keep:'Keep',problem:'Problem',try:'Try'};
   let out = `## 신설팀 상반기 OKR 회고 — KPT (2026-09-21)\n`;
-  ['keep','problem','try'].forEach(c=>{ out+=`\n### ${lab[c]}\n`; const l=cards.filter(x=>x.col===c); out+= l.length? l.map(x=>`- ${x.text}`).join('\n')+'\n' : '- \n'; });
+  ['keep','problem','try'].forEach(c=>{ out+=`\n### ${lab[c]}\n`; const l=cards.filter(x=>x.col===c); out+= l.length? l.map(x=>`- ${x.text}${x.who?` (${x.who})`:''}`).join('\n')+'\n' : '- \n'; });
   const eg=($('#endgame').value||'').trim();
   out+=`\n### 끝 그림\n${eg? eg+'\n' : '- \n'}`;
   const acts=[...document.querySelectorAll('#act tbody tr')].map(tr=>[...tr.querySelectorAll('input')].map(i=>i.value.trim())).filter(r=>r.some(Boolean));
